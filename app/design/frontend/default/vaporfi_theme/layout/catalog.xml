@@ -204,9 +204,14 @@ Product view
                 <type>skin_css</type>
                 <name>css/download/customer/account/a0d5da07dc1862797d5300537fe636e3.1449859911.css</name>
             </action>
-            <action method="addCss">
-                <stylesheet>css/download/product/943add99851c4b4332840ccd0162108e.1450060413.css</stylesheet>
-            </action>
+
+            <action method="addCss"><stylesheet>css/download/product/943add99851c4b4332840ccd0162108e.1450060413.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/download/product/css_product_zoom.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/download/product/magiczoomplus.css</stylesheet></action>
+
+            <action method="addJs"><script>vaporfi/download/product/magictoolbox_utils.js</script></action>
+            <action method="addJs"><script>vaporfi/download/product/magiczoomplus.js</script></action>
+            <action method="addJs"><script>vaporfi/download/product/zoom_script.js</script></action>
 
             <action method="addJs"><script>varien/product.js</script></action>
             <action method="addJs"><script>varien/configurable.js</script></action>
@@ -223,6 +228,7 @@ Product view
                 <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
                 -->
                 <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
+
                 <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
                     <label>Alert Urls</label>
                 </block>
@@ -238,6 +244,9 @@ Product view
                 <block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                 </block>
+
+                <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
+
                 <block type="catalog/product_view_attributes" name="product.attributes" as="additional" template="catalog/product/view/attributes.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                 </block>
@@ -262,7 +271,7 @@ Product view
                 <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
                     <label>Bottom Block Options Wrapper</label>
                     <action method="insert"><block>product.tierprices</block></action>
-                    <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
+                    <!--<block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>-->
                     <action method="append"><block>product.info.addtocart</block></action>
                     <action method="append"><block>product.info.addto</block></action>
                 </block>

@@ -27,12 +27,21 @@
 <?php $_product = $this->getProduct(); ?>
 <?php $buttonTitle = $this->__('Add to Cart'); ?>
 <?php if($_product->isSaleable()): ?>
-    <div class="add-to-cart">
+    <div class="qtyContainer">
         <?php if(!$_product->isGrouped()): ?>
-        <label for="qty"><?php echo $this->__('Qty:') ?></label>
-        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
+            <label for="qty"><?=$this->__('Quantity')?></label>
+            <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>"
+                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" id="product-addtocart-button" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+
         <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+    <div class="addToCartContainer">
+        <div id="payment-waiting" class="addtocart-wait" style="display: none;">
+            <img src="http://www.vaporfi.com/skin/frontend/default/vaporfi/images/opc-ajax-loader.gif" width="16" height="16">
+        </div>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="greenButton addToCartBtn" onclick="productAddToCartForm.submit(this)">
+            <?=$buttonTitle ?>
+        </button>
     </div>
 <?php endif; ?>

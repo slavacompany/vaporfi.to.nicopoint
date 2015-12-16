@@ -31,16 +31,23 @@ $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
 ?>
 <?php if ($_product->isSaleable() && count($_attributes)):?>
     <dl>
-    <?php foreach($_attributes as $_attribute): ?>
-        <dt><label class="required"><em>*</em><?php echo $_attribute->getLabel() ?></label></dt>
-        <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
-            <div class="input-box">
-                <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
-                    <option><?php echo $this->__('Choose an Option...') ?></option>
-                  </select>
-              </div>
-        </dd>
-    <?php endforeach; ?>
+        <?php foreach($_attributes as $_attribute): ?>
+            <dt><label class="required"><em>*</em><?php echo $_attribute->getLabel() ?></label></dt>
+            <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+                <div class="input-box select-box">
+                    <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>"
+                            class="required-entry super-attribute-select" onchange="javascript:spConfig.checkSupply(this);">
+                        <option><?=$this->__('choose an option');?></option>
+                    </select>
+
+                    <?php if($_attribute->getAttributeId()==137):?>
+                        <a href="javascript: void(0)" class="question-link pop-up-link" id="BlendMix" title="What is the Blend Mix?">?</a>
+                    <?php elseif($_attribute->getAttributeId()==138):?>
+                        <a href="javascript: void(0)" class="question-link pop-up-link" id="StrengthLevel" title="What is the right level?">?</a>
+                    <?php endif; ?>
+                </div>
+            </dd>
+        <?php endforeach; ?>
     </dl>
     <script type="text/javascript">
         var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
