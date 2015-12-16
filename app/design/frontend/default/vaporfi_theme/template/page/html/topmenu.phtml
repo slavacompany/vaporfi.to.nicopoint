@@ -1,0 +1,76 @@
+<?php $newsletterObj = new Mage_Newsletter_Block_Subscribe(); ?>
+
+<ul id="mainNav" class="clearer">
+    <li class="nav-1 parent">
+        <?=$this->getLayout()->createBlock('cms/block')->setBlockId('topmenu-e-liquids')->toHtml()?>
+    </li>
+    <li class="nav-2 parent">
+        <?=$this->getLayout()->createBlock('cms/block')->setBlockId('topmenu-electronic-cigarettes')->toHtml()?>
+    </li>
+    <li class="nav-3 parent">
+        <?=$this->getLayout()->createBlock('cms/block')->setBlockId('topmenu-accessories')->toHtml()?>
+    </li>
+    <li class="nav-deal parent">
+        <a href="javascript: void(0)" title="<?=$this->__('Deals')?>"><?=$this->__('Deals')?><!--<i class="vficon-mail"></i>--></a>
+        <ul class="clearer">
+            <li>
+                <h4><?=$this->__('Want Some Great Vape Deals?')?></h4>
+                <p><?=$this->__('Get exclusive deals delivered right to your inbox.')?></p>
+                <p><?=$this->__('We promise never to spam you or share your info.')?></p>
+                <p><?=$this->__('Sign up now and start saving!')?></p>
+                <form action="<?=$newsletterObj->getUrl('newsletter/subscriber/new')?>" method="post" id="header-newsletter-validate-detail" class="clearer">
+                    <div class="input-box clearer">
+                        <input type="email" name="email" id="newsletter_header" title="E-mail Address" placeholder="E-MAIL" class="input-text required-entry validate-email">
+                        <button type="submit" title="Submit" class="greenButtonSml"><?=$this->__('Sign Me Up!')?></button>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    var headernewsletterSubscriberFormDetail = new VarienForm('header-newsletter-validate-detail');
+                    //]]>
+                </script>
+                <small><?=$this->__('View our')?> <a href="/privacy"><?=$this->__('privacy policy')?></a></small>
+            </li>
+        </ul>
+    </li>
+    <li class="nav-4 parent">
+        <?=$this->getLayout()->createBlock('cms/block')->setBlockId('topmenu-how-it-works')->toHtml()?>
+    </li>
+    <li class="nav-5 parent">
+        <?=$this->getLayout()->createBlock('cms/block')->setBlockId('topmenu-about-us')->toHtml()?>
+    </li>
+</ul>
+
+<div id="mobile-topNav">
+
+    <?=$this->getLayout()->createBlock('cms/block')->setBlockId('topmenu-mobile')->toHtml()?>
+
+    <ul id="mobile-miniNav">
+        <li><a href="/customer-support"><?=$this->__('Customer Support')?></a></li>
+        <li><a href="#" onclick="return false;"><?=$this->__('Store Locator')?></a></li>
+        <li><a href="#" class="special-link"><?=$this->__('What\'s New')?></a></li>
+        <li><a href="#" class="special-link"><?=$this->__('Clearance')?></a></li>
+        <li class="accountmenu">
+            <a href="<?=Mage::getUrl('customer/account')?>" title="<?=$this->__('My Account')?>"><?=$this->__('My Account')?></a>
+            <ul class="acctmenu">
+                <?php
+                if(!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                    <li>
+                        <a href="<?=Mage::getUrl('customer/account/login')?>" title="<?=$this->__('Account Login')?>"><?=$this->__('Account Login')?></a>
+                    </li>
+                <?php else: ?>
+                    <li>
+                        <a href="<?=Mage::getUrl('customer/account')?>" title="<?=$this->__('Account Login')?>">
+                            <?=$this->__('Dashboard')?>
+                        </a>
+                    </li>
+                    <li class="logout">
+                        <a href="<?=Mage::getUrl('customer/account/logout')?>" title="<?=$this->__('Logout')?>">
+                            <?=$this->__('Logout')?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </li>
+
+</div>

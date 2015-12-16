@@ -1,0 +1,174 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="std">
+    <div class="boxContent1">
+        <div class="cart-empty">
+            <div class="page-title">
+                <h1><?php echo $this->__('Shopping Cart is Empty') ?></h1>
+            </div>
+
+            <?php echo $this->getMessagesBlock()->toHtml() ?>
+            <?php echo $this->getChildHtml('checkout_cart_empty_widget'); ?>
+            <p><?php echo $this->__('You have no items in your shopping cart.') ?></p>
+            <p><?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl())) ?></p>
+            <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
+
+            </div>
+        <div class="boxBottom1"></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    //<![CDATA[
+    enUS = {"m":{"wide":["January","February","March","April","May","June","July","August","September","October","November","December"],"abbr":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]}}; // en_US locale reference
+    Calendar._DN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]; // full day names
+    Calendar._SDN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]; // short day names
+    Calendar._FD = 0; // First day of the week. "0" means display Sunday first, "1" means display Monday first, etc.
+    Calendar._MN = ["January","February","March","April","May","June","July","August","September","October","November","December"]; // full month names
+    Calendar._SMN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; // short month names
+    Calendar._am = "AM"; // am/pm
+    Calendar._pm = "PM";
+
+    // tooltips
+    Calendar._TT = {};
+    Calendar._TT["INFO"] = "About the calendar";
+
+    Calendar._TT["ABOUT"] =
+        "DHTML Date/Time Selector\n" +
+        "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" +
+        "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
+        "Distributed under GNU LGPL. See http://gnu.org/licenses/lgpl.html for details." +
+        "\n\n" +
+        "Date selection:\n" +
+        "- Use the \xab, \xbb buttons to select year\n" +
+        "- Use the " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " buttons to select month\n" +
+        "- Hold mouse button on any of the above buttons for faster selection.";
+    Calendar._TT["ABOUT_TIME"] = "\n\n" +
+    "Time selection:\n" +
+    "- Click on any of the time parts to increase it\n" +
+    "- or Shift-click to decrease it\n" +
+    "- or click and drag for faster selection.";
+
+    Calendar._TT["PREV_YEAR"] = "Prev. year (hold for menu)";
+    Calendar._TT["PREV_MONTH"] = "Prev. month (hold for menu)";
+    Calendar._TT["GO_TODAY"] = "Go Today";
+    Calendar._TT["NEXT_MONTH"] = "Next month (hold for menu)";
+    Calendar._TT["NEXT_YEAR"] = "Next year (hold for menu)";
+    Calendar._TT["SEL_DATE"] = "Select date";
+    Calendar._TT["DRAG_TO_MOVE"] = "Drag to move";
+    Calendar._TT["PART_TODAY"] = ' (' + "today" + ')';
+
+    // the following is to inform that "%s" is to be the first day of week
+    Calendar._TT["DAY_FIRST"] = "Display %s first";
+
+    // This may be locale-dependent. It specifies the week-end days, as an array
+    // of comma-separated numbers. The numbers are from 0 to 6: 0 means Sunday, 1
+    // means Monday, etc.
+    Calendar._TT["WEEKEND"] = "0,6";
+
+    Calendar._TT["CLOSE"] = "Close";
+    Calendar._TT["TODAY"] = "today";
+    Calendar._TT["TIME_PART"] = "(Shift-)Click or drag to change value";
+
+    // date formats
+    Calendar._TT["DEF_DATE_FORMAT"] = "%b %e, %Y";
+    Calendar._TT["TT_DATE_FORMAT"] = "%B %e, %Y";
+
+    Calendar._TT["WK"] = "Week";
+    Calendar._TT["TIME"] = "Time:";
+
+    Calendar.getAbsolutePos = function(element) {
+
+        var res = new Object();
+        res.x = 0; res.y = 0;
+
+        // variant 1 (working best, copy-paste from prototype library)
+        /*
+         do {
+         res.x += element.offsetLeft || 0;
+         res.y += element.offsetTop  || 0;
+         element = element.offsetParent;
+         if (element) {
+         //alert(element.tagName);
+         if (element.tagName.toUpperCase() == 'BODY') break;
+         var p = Calendar.getStyle(element, 'position');
+         if (p !== 'static') break;
+         }
+         } while (element);
+
+         return res;
+         */
+
+        // variant 2 (good solution, but lost in IE8)
+        if (element !== null) {
+            res.x = element.offsetLeft;
+            res.y = element.offsetTop;
+
+            var offsetParent = element.offsetParent;
+            var parentNode = element.parentNode;
+
+            while (offsetParent !== null) {
+                res.x += offsetParent.offsetLeft;
+                res.y += offsetParent.offsetTop;
+
+                if (offsetParent != document.body && offsetParent != document.documentElement) {
+                    res.x -= offsetParent.scrollLeft;
+                    res.y -= offsetParent.scrollTop;
+                }
+                //next lines are necessary to support FireFox problem with offsetParent
+                if (Calendar.is_gecko) {
+                    while (offsetParent != parentNode && parentNode !== null) {
+                        res.x -= parentNode.scrollLeft;
+                        res.y -= parentNode.scrollTop;
+                        parentNode = parentNode.parentNode;
+                    }
+                }
+                parentNode = offsetParent.parentNode;
+                offsetParent = offsetParent.offsetParent;
+            }
+        }
+
+        //fix calendar position bug: see js/calendar/calendar.js: lines 1447-1470 (method "fixPosition")
+        if (Calendar.is_ie && element.tagName.toUpperCase() == 'DIV' && element.style.position == "absolute" )
+        {
+            res.y +=5000;
+        }
+        //end fix
+
+        return res;
+    };
+    //]]>
+</script>
+<script type="text/javascript">
+    var CAPTION_POINT = 'Points';
+    var CAPTION_POINTS = 'Points';
+    var CAPTION_YOU_WILL_SPEND = 'You Will Spend';
+    var CAPTION_WITH = 'with';
+    var CAPTION_CANNOT_USE_POINTS = "You cannot use points until you login or create a new account.";
+    var CAPTION_NOT_ENOUGH_POINTS = "You don't have enough points to use this redemption rule.";
+    var CAPTION_REFRESHING_CART = 'Refreshing cart, please wait..';
+</script>

@@ -1,0 +1,127 @@
+<?php $countCartItems = $this->helper('checkout/cart')->getSummaryCount();
+      $_cartQty       = ($countCartItems) ? $countCartItems : 0;
+      $catalogSearchObject = new Mage_CatalogSearch_Helper_Data();
+?>
+<header>
+
+    <div id="top">
+
+        <div id="topWrapper" class="clearer">
+
+            <h1 id="logo">
+                <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><?=$this->__('VaporFi')?></a>
+            </h1>
+
+            <div id="topMenuContainer">
+
+                <div id="topMenu">
+                    <div id="topNav" class="clearer">
+                        <div id="topRightDetails">
+                            <div class="phone-top">1-855-93-VAPOR</div>
+                            <div class="promo-top">Promo 1001</div>
+                        </div>
+
+                        <div id="form-search" class="">
+                            <form id="search_mini_form" action="<?=$catalogSearchObject->getResultUrl()?>" method="get">
+                                <span id="search-icon"><img width="27" height="27" alt="Search Products" src="/skin/frontend/default/vaporfi_theme/images/search_btn.png"></span>
+                                <div id="search-container">
+                                    <input id="search" type="text" name="q" value="" class="input-text" maxlength="128" autocomplete="off"><input type="submit" value="Submit" class="button" id="search-button">
+                                    <a href="javascript: void(0)" class="closeBtn"><img width="22" height="22" alt="Close Search" src="/skin/frontend/default/vaporfi_theme/images/search_close_btn.png"></a>
+                                    <div id="search_autocomplete" class="search-autocomplete" style="display: none;"></div>
+                                </div>
+                                <script type="text/javascript">
+                                    //<![CDATA[
+                                    if(window.Varien){
+                                        var searchForm = new Varien.searchForm('search_mini_form', 'search', 'SEARCH PRODUCTS');
+                                        searchForm.initAutocomplete('<?=$catalogSearchObject->getSuggestUrl()?>', 'search_autocomplete');
+                                    } else {
+                                        $('search').writeAttribute('placeholder', 'SEARCH PRODUCTS');
+                                    }
+                                    //]]>
+                                </script>
+                            </form>
+                        </div>
+
+                        <ul id="miniNav" class="clearer">
+                            <li class="first">
+                                <a href="/customer-support"><?=$this->__('Customer Support')?></a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="return false;"><?=$this->__('Store Locator')?></a>
+                            </li>
+                        </ul>
+
+                        <ul id="clearanceTab">
+                            <li>
+                                <a href="#"><?=$this->__('What\'s New')?></a>
+                            </li>
+                            <li>
+                                <a href="#"><?=$this->__('Clearance')?></a>
+                            </li>
+                        </ul>
+
+                        <ul id="accountNav" class="clearer">
+                            <li id="accountmenu" class="first accountmenu">
+                                <a href="<?=Mage::getUrl('customer/account')?>" title="<?=$this->__('My Account')?>"><?=$this->__('My Account')?></a>
+                                <ul class="acctmenu">
+                                    <?php
+                                    if(!Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                                        <li>
+                                            <a href="<?=Mage::getUrl('customer/account/login')?>" title="<?=$this->__('Account Login')?>"><?=$this->__('Account Login')?></a>
+                                        </li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?=Mage::getUrl('customer/account')?>" title="<?=$this->__('Account Login')?>">
+                                                <?=$this->__('Dashboard')?>
+                                            </a>
+                                        </li>
+                                        <li class="logout">
+                                            <a href="<?=Mage::getUrl('customer/account/logout')?>" title="<?=$this->__('Logout')?>">
+                                                <?=$this->__('Logout')?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                            <li class="last">
+                                <a href="<?=Mage::helper('checkout/cart')->getCartUrl()?>" id="top-link-cart">
+                                    <?=$this->__('Cart (').
+                                        '<span class="top-link-cart" id="cartQty">'.
+                                            $_cartQty.
+                                        '</span>'.
+                                    ' Items)';?>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <style>
+                        #mainNav .nav-1>ul{width:653px;left:0;right:auto;}#mainNav .nav-1:hover>ul{height:128px;}#mainNav .nav-1>ul>#eliquids{width:467px;height:128px;padding:0;}#mainNav .nav-1>ul>#eliquids li{width:145px;}#mainNav .nav-2>ul{width:670px;padding-left:135px;}#mainNav .nav-2>ul>#eliquid-devices{width:470px;padding:0;}#mainNav .nav-2>ul>#eliquid-devices li{width:224px;float:left;border-right:1px solid #e0e0e0;padding:0 0 0 10px;}#mainNav .nav-2>ul>#eliquid-devices li.end{border-right:none;}#mainNav .nav-2>ul>#dryherb-devices{float:right;width:185px;margin:0 10px 0 0;border-bottom:1px solid #e0e0e0;padding:0;}#mainNav .nav-2>ul>#dryherb-devices li{width:175px;float:left;padding:0 0 0 10px;}#mainNav .nav-2:hover>ul{height:235px;}#mainNav .nav-3>ul{width:879px;}#mainNav .nav-3:hover>ul{height:330px;}#mainNav .nav-3>ul>li{width:125px;}#mainNav .nav-3>ul .sub{height:315px;}#mainNav .nav-3>ul #sub-3{width:155px;}#mainNav .nav-3>ul #sub-4{width:225px;}#mainNav .nav-3>ul #sub-5{width:195px;height:260px;border-right:none;}#mainNav .nav-4>ul{width:727px;}#mainNav .nav-4>ul>li{width:170px;}#mainNav .nav-5>ul{width:547px;}#mainNav .nav-5>ul>li{width:125px;}
+                    </style>
+
+                    <?php echo $this->getChildHtml('topMenu') ?>
+
+                    <div id="mobile-topNav"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="searchBarBackground"></div>
+
+        <div id="searchBarBackground" class=""></div>
+<!--
+        <div class="quick-access">
+            <?php /*echo $this->getChildHtml('topSearch') */?>
+            <p class="welcome-msg"><?php /*echo $this->getChildHtml('welcome') */?> <?php /*echo $this->getAdditionalHtml() */?></p>
+            <?php /*echo $this->getChildHtml('topLinks') */?>
+            <?php /*echo $this->getChildHtml('store_language') */?>
+        </div>
+-->
+        <?php echo $this->getChildHtml('topContainer'); ?>
+    </div>
+
+</header>
