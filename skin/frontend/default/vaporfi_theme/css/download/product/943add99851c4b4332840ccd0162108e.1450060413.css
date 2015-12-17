@@ -4292,3 +4292,147 @@ div.checkoutcontainer div.rewards_referral_information .input-text {
     padding: 10px;
 }
 
+/* CSS File - skin/frontend/default/vaporfi/css/style-cart.css Magento cart new*/
+
+#checkout-step-login.boxContent1, #magento-checkout.boxContent1{min-height:initial;min-height:auto;}
+#checkoutMenu{height:63px;border-left:2px solid #e5e5e5;margin:6px 0 6px 15px;padding:11px 0 11px 30px;}
+#checkoutMenu h4{margin:0 20px;text-align:center;display:block;line-height:24px;width:115px;font-size:18px;color:#fff;background:#ddd;font-weight:normal;text-transform:none;float:left;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;padding:6px 0;}
+#checkoutMenu h4 span{display:block;font-size:22px;}
+.checkout-onepage-index #checkoutMenu h4.selected{background:#81c341;}
+.checkout-onepage-index #checkoutMenu h4.complete{background:#838383;}
+#checkoutMenu .arrow{filter:alpha(opacity=10);opacity:.1;}
+.checkout-cart-index #m-cart-btn{display:none;}
+
+.checkout-onepage-index #topWrapper #m-cart-btn{display:none;}
+.checkout-onepage-index .page{padding-top:45px;}
+#cart-breadcrumbs{position:absolute;width:960px;left:50%;top:-30px;margin-left:-490px;padding:0 0 0 20px;z-index:10;}
+#cart-breadcrumbs a{text-decoration:underline;color:#83c14a;}
+#cart-breadcrumbs a:hover{text-decoration:none;}
+#cart-breadcrumbs a.first{font-size:14px;}
+
+#magento-cart .page-title{padding:0 20px;background:#81c341;width:auto;height:52px;margin-bottom:20px;-webkit-border-top-left-radius:10px;-webkit-border-top-right-radius:10px;-moz-border-top-left-radius:10px;-moz-border-top-right-radius:10px;border-top-left-radius:10px;border-top-right-radius:10px;position:relative;}
+#magento-cart .page-title h1{font-size:28px;color:#fff;background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/shopping_cart_icon.png) left center no-repeat;padding:0 0 0 46px;margin:0;line-height:52px;text-transform:none;}
+#magento-cart .page-title h3{position:absolute;right:20px;top:0;font-size:18px;color:#fff;background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/shipping_icon.png) left center no-repeat;padding:0 0 0 65px;margin:0;line-height:52px;text-transform:none;}
+
+#secure-info{background:#f8f8f8;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;width:310px;}
+#magento-cart #secure-info{float:left;margin:0 0 20px 20px;}
+#secure-info h2{font-size:26px;padding:10px 0;margin:0;text-align:center;text-transform:uppercase;}
+#secure-info .section{min-height:68px;padding:0 0 10px 85px;margin:0 15px 20px;}
+#secure-info #live-chat{background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/cart_live_chat_icon.png) no-repeat;border-bottom:1px dotted #909090;}
+#secure-info #live-chat p{padding-top:10px;}
+#secure-info #live-chat #live-chat-link{color:#83c14a;display:block;font-weight:normal;}
+#secure-info #money-back{background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/cart_30_day_icon.png) no-repeat;}
+#secure-info #money-back small{font-size:11px;color:#b6b6b6;}
+#secure-info #secure-checkout{background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/cart_secure_icon.png) no-repeat;}
+#secure-info .section h3{font-size:22px;}
+#secure-info #money-back h3{padding-right:50px;}
+#secure-info .section p{font-size:12px;padding-bottom:10px;margin:0;}
+#secure-info #secure-icons img{margin-right:10px;}
+
+#magento-cart #cart{float:right;width:605px;margin-right:20px;padding-bottom:30px;}
+#magento-cart #cart .messages{padding:0;}
+#magento-cart form{font-family:'Varela Round', Arial;font-size:14px;}
+#new-shopping-cart-table #cart-table-head{background:#e9e9e9;}
+#new-shopping-cart-table #cart-table-head .cart-table-col{float:left;line-height:36px;padding:2px 0;text-transform:uppercase;white-space:nowrap;}
+#new-shopping-cart-table #cart-table-head #cart-col1{width:135px;}
+#new-shopping-cart-table #cart-table-head #cart-product-col{display:none;}
+#new-shopping-cart-table #cart-table-head #cart-col2{width:160px;}
+#new-shopping-cart-table #cart-table-head #cart-col3{width:125px;}
+#new-shopping-cart-table #cart-table-head #cart-col4{width:125px;}
+#new-shopping-cart-table #cart-table-head #cart-col5{width:60px;}
+#new-shopping-cart-table #cart-table-body .cart-item{border-bottom:2px solid #e8e8e8;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-item-col{float:left;padding:40px 0 10px;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-col1{width:135px;padding:0;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-product-col{float:left;width:410px;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-col2{width:160px;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-col3{width:125px;text-align:center;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-col4{width:125px;text-align:center;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-col5{width:60px;font-size:10px;text-transform:uppercase;line-height:26px;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-col5 a{display:block;}
+#new-shopping-cart-table #cart-table-body .cart-item .cart-col5 .remove-btn{color:#83c14a;}
+#new-shopping-cart-table .product-image{display:block;width:115px;margin:5px auto;filter:alpha(opacity=100);opacity:1.0;}
+#new-shopping-cart-table .product-image:hover{filter:alpha(opacity=75);opacity:0.75;}
+#new-shopping-cart-table .product-name{font-size:14px;text-transform:uppercase;text-align:left;}
+#new-shopping-cart-table .product-name a{color:#606060;}
+#new-shopping-cart-table .stock-msgs{font-family:Arial;font-size:11px;font-weight:400;margin:0;}
+#new-shopping-cart-table .options-container{position:relative;line-height:20px;text-align:center;}
+#new-shopping-cart-table .custom-options-note{display:block;line-height:25px;color:#f00;text-align:center;}
+#new-shopping-cart-table .view-options{font-size:10px;text-transform:uppercase;color:#83c14a;}
+#new-shopping-cart-table .item-options{display:none;font-family:Arial;font-size:12px;position:absolute;width:300px;padding:10px 0;left:0;top:20px;background:#e8e8e8;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;z-index:10;}
+#new-shopping-cart-table .options-container:hover .item-options{display:block;}
+#new-shopping-cart-table .item-options dt{width:120px;float:left;text-align:right;}
+#new-shopping-cart-table .item-options dd{margin:0 0 0 5px;width:175px;float:left;text-align:left;padding:0;}
+#new-shopping-cart-table .cart-price{line-height:44px;}
+#new-shopping-cart-table .price{font-size:20px;color:#424242;}
+#new-shopping-cart-table .qty{text-align:center;width:56px;height:32px;border:2px solid #dfdfdf;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}
+#new-shopping-cart-table .qty:focus{border:2px solid #afafaf;}
+#new-shopping-cart-table .qty:disabled{border:2px solid #009ad6;}
+#new-shopping-cart-table .product-qty{line-height:44px;}
+#new-shopping-cart-table button{border:none;float:left;margin:4px 0;padding:10px 0px;text-transform:uppercase;}
+#new-shopping-cart-table #update-cart-actions{padding:10px 8px;}
+#new-shopping-cart-table #update-cart-actions button{font-size:14px;width:150px;}
+#new-shopping-cart-table #update-cart-actions .btn-update{margin-right:15px;}
+#new-shopping-cart-table #cart-table-foot{background:#daecc8;padding:20px 10px;}
+#new-shopping-cart-table #cart-table-totals{width:300px;float:right;}
+#new-shopping-cart-table #cart-table-totals .cart-totals-item{color:#424242;line-height:16px;font-size:16px;text-transform:uppercase;text-align:right;}
+#new-shopping-cart-table #cart-table-totals .cart-totals-item span{display:block;padding:10px;}
+#new-shopping-cart-table #cart-table-totals .cart-totals-item .cart-caption{float:left;width:110px;}
+#new-shopping-cart-table #cart-table-totals .cart-totals-item .price, #new-shopping-cart-table #cart-table-totals .cart-totals-item .cart-amount{float:right;font-size:28px;width:145px;text-align:right;}
+#new-shopping-cart-table #cart-table-totals #cart-points-total_earned{text-align:right;padding:10px;}
+#new-shopping-cart-table #cart-table-totals #cart-points-total_earned span{float:none;display:inline;padding:0;}
+#new-shopping-cart-table #cart-table-totals #cart-points-total_earned .cart-amount{font-size:20px;}
+
+#new-shopping-cart-table #rewards-box-spend-minicart{float:left;width:275px;margin:0 0 0 10px;position:relative;text-transform:uppercase;}
+
+#new-shopping-cart-table .discount{float:left;margin:0 0 0 10px;position:relative;}
+#new-shopping-cart-table #cart-table-totals .discount .input-box{float:left;margin-right:10px;}
+#new-shopping-cart-table #cart-table-totals .discount .input-box input.input-text{width:201px;height:31px;padding-left:13px;font-family:'Varela Round', Arial;font-size:14px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;border:2px solid #beceaf;}
+#new-shopping-cart-table #cart-table-totals .discount .input-box input.input-text:disabled{border:2px solid #000;color:#000;}
+#new-shopping-cart-table #cart-table-totals .discount button{width:80px;margin:4px 0;}
+#new-shopping-cart-table #cart-table-totals .discount label{font-family:'Varela Round', Arial;font-weight:normal;font-size:14px;text-transform:uppercase;}
+#new-shopping-cart-table #cart-table-totals .discount .please-wait-loader{background:#daecc8;opacity:.9;}
+#new-shopping-cart-table #cart-table-totals .discount .please-wait-loader .please-wait{width:310px;text-align:center;}
+
+#cart .idme-connect{background:#daecc8;padding:0 10px 20px;}
+#cart .idme-connect #idme-content{display:none;padding:10px 0 0;}
+#cart .idme-connect h2{text-transform:none;margin:0 auto;border-top:1px solid #8b8c8e;padding:10px 0;}
+#cart .idme-connect .idme-btn{height:40px;display:inline-block;margin:0 5px 5px;}
+#cart .idme-connect .idme-btn img{height:100%;}
+#cart #idme-modal{z-index:399;}
+#cart #idme-modal-content{border-radius:10px;margin:0 0 0 -250px;padding:10px 10px 90px;left:50%;width:500px;border:20px solid #fff;box-sizing:border-box;}
+#cart #idme-modal-content .close{top:5px;right:5px;}
+
+#magento-cart .button-set{margin:20px 8px;}
+#magento-cart .button-set button{border:none;float:left;margin:4px 0;padding:10px 0px;text-transform:uppercase;}
+#magento-cart .button-set .btn-continue{font-size:16px;width:200px;margin:15px 0 0;}
+#magento-cart .button-set .btn-checkout{font-size:20px;width:270px;float:right;padding:15px 0px;}
+
+#cart-testimonials h2{font-size:20px;color:#606060;text-transform:uppercase;padding:30px;margin:0;font-weight:bold;}
+#cart-testimonials .testimonial-entry{float:left;width:420px;padding:5px 30px;margin-bottom:30px;float:left;}
+#cart-testimonials .testimonial-entry.last{ border-left:1px dotted #ebebeb;}
+#cart-testimonials p {font-style:italic;line-height:25px;margin-bottom:10px;font-size:14px;}
+#cart-testimonials small {font-size:13px;}
+#cart-testimonials .testimonial-img{float:left;margin-right:25px;}
+
+.cart-empty{padding:40px;min-height:350px;}
+
+#checkoutSteps .boxContent1{margin-bottom:40px;}
+#checkoutStepsContainer{padding-bottom:50px;}
+.checkoutStepBoxContent{width:980px;margin:0 auto;padding:0 0 20px;}
+.checkoutStepBox{width:304px;height:167px;float:left;margin:0 34px 15px 0;position:relative;background:#fff;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}
+.checkoutStepBox.last{margin-right:0;}
+.checkoutStepBoxBottom{width:304px;height:15px;position:absolute;bottom:-15px;left:0px;background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/box_bottom_shadow_mini.png) 0 0 no-repeat;}
+.checkoutStepBox .section{padding:15px 0 0 95px;height:152px;margin:0 12px;}
+.checkoutStepBox .money-back{background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/checkout_30_day_icon.png) left center no-repeat;}
+.checkoutStepBox .money-back small{font-size:11px;color:#b6b6b6;}
+.checkoutStepBox .secure-checkout{background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/checkout_secure_icon.png) left center no-repeat;}
+.checkoutStepBox .live-chat{background:url(https://www.vaporfi.com/skin/frontend/default/vaporfi/images/checkout_live_chat_icon.png) left center no-repeat;}
+.checkoutStepBox .section h3{font-size:22px;margin-bottom:5px;}
+.checkoutStepBox .section.live-chat h3{text-transform:none;font-size:20px;}
+.checkoutStepBox .section.live-chat h4{text-transform:uppercase;font-size:14px;color:#81c341;font-family:'Varela Round', Arial;}
+.checkoutStepBox .section .no-text-transform{text-transform:none;}
+.checkoutStepBox .section .live-chat-text{font-size:16px;font-weight: normal;}
+.checkoutStepBox .section .live-chat-link{color: #8B8C8E; text-decoration: underline;}
+.checkoutStepBox .money-back h3{padding-right:0px;}
+.checkoutStepBox .section p{font-size:12px;}
+.checkoutStepBox .secure-icons img{margin-right:5px;}

@@ -58,9 +58,52 @@ Default layout, loads most of the pages
         <remove name="right"/>
         <remove name="left"/>
         <!-- Mage_Checkout -->
+
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
+
+        <reference name="head">
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/download/home/8e4189035becfa2b64aee988e34750d6.1448861651.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/download/customer/account/a0d5da07dc1862797d5300537fe636e3.1449859911.css</name>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/download/product/943add99851c4b4332840ccd0162108e.1450060413.css</stylesheet>
+            </action>
+
+            <action method="addJs"><script>vaporfi/download/cart/icart.js</script></action>
+            <action method="addJs"><script>vaporfi/download/cart/cart.popup.js</script></action>
+
+            <action method="addJs"><script>vaporfi/download/checkout/modalbox.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/opcheckout.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/ccard.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/calendar-setup.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/calendar.js</script></action>
+
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/validation.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/checkout.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/directpost.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/step.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/address.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/billing.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/shipping.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/shipping_method.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/payment.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/review.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/cart.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/coupon.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/giftwrap.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/deliverydate.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/giftmessage.js</script></action>
+            <action method="addJs"><script>vaporfi/download/checkout/aitoc/login.js</script></action>
+
+        </reference>
+
         <reference name="content">
             <block type="checkout/cart" name="checkout.cart">
                 <action method="setCartTemplate"><value>checkout/cart.phtml</value></action>

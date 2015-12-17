@@ -31,128 +31,14 @@
  * @see Mage_Checkout_Block_Cart
  */
 ?>
-<div class="cart">
-    <div class="page-title title-buttons">
-        <h1><?php echo $this->__('Shopping Cart') ?></h1>
-        <?php if(!$this->hasError()): ?>
-        <ul class="checkout-types">
-        <?php foreach ($this->getMethods('top_methods') as $method): ?>
-            <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
-            <li><?php echo $methodHtml; ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
-        </ul>
-        <?php endif; ?>
-    </div>
-    <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php echo $this->getChildHtml('form_before') ?>
-    <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
-        <?php echo $this->getBlockHtml('formkey'); ?>
-        <fieldset>
-            <table id="shopping-cart-table" class="data-table cart-table">
-                <col width="1" />
-                <col />
-                <col width="1" />
-            <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-                <col width="1" />
-            <?php endif ?>
-            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                <col width="1" />
-            <?php endif; ?>
-            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                <col width="1" />
-            <?php endif; ?>
-                <col width="1" />
-            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                <col width="1" />
-            <?php endif; ?>
-            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
-                <col width="1" />
-            <?php endif; ?>
-                <col width="1" />
-
-            <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
-                <thead>
-                    <tr>
-                        <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
-                        <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
-                        <th rowspan="<?php echo $mergedCells; ?>"></th>
-                        <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
-                        <?php endif ?>
-                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Unit Price') ?></span></th>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
-                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
-                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center">&nbsp;</th>
-                    </tr>
-                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
-                    <tr>
-                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
-                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
-                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
-                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
-                    </tr>
-                    <?php endif; ?>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <td colspan="50" class="a-right">
-                            <?php if($this->getContinueShoppingUrl()): ?>
-                                <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue Shopping')) ?>" class="button btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
-                            <?php endif; ?>
-                            <button type="submit" name="update_cart_action"  value="update_qty" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Update Shopping Cart')); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
-                            <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Clear Shopping Cart')); ?>" class="button btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Clear Shopping Cart'); ?></span></span></button>
-                            <!--[if lt IE 8]>
-                            <input type="hidden" id="update_cart_action_container" />
-                            <script type="text/javascript">
-                            //<![CDATA[
-                                Event.observe(window, 'load', function()
-                                {
-                                    // Internet Explorer (lt 8) does not support value attribute in button elements
-                                    $emptyCartButton = $('empty_cart_button');
-                                    $cartActionContainer = $('update_cart_action_container');
-                                    if ($emptyCartButton && $cartActionContainer) {
-                                        Event.observe($emptyCartButton, 'click', function()
-                                        {
-                                            $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
-                                            $cartActionContainer.setAttribute('name', 'update_cart_action');
-                                            $cartActionContainer.setValue('empty_cart');
-                                        });
-                                    }
-
-                                });
-                            //]]>
-                            </script>
-                            <![endif]-->
-                        </td>
-                    </tr>
-                </tfoot>
-                <tbody>
-                <?php foreach($this->getItems() as $_item): ?>
-                    <?php echo $this->getItemHtml($_item) ?>
-                <?php endforeach ?>
-                </tbody>
-            </table>
-            <script type="text/javascript">decorateTable('shopping-cart-table')</script>
-        </fieldset>
-    </form>
-    <div class="cart-collaterals">
-        <div class="col2-set">
-            <div class="col-1">
-                <?php echo $this->getChildHtml('crosssell') ?>
-            </div>
-            <div class="col-2">
-                <?php /* Extensions placeholder */ ?>
-                <?php echo $this->getChildHtml('checkout.cart.extra') ?>
-                <?php echo $this->getChildHtml('coupon') ?>
-                <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
-            </div>
-        </div>
-        <div class="totals">
-            <?php echo $this->getChildHtml('totals'); ?>
+<div class="std">
+    <div class="boxContent1" id="magento-cart">
+        <div class="page-title title-buttons">
+            <h1><?=$this->__('Your Cart');?></h1>
+            <h3><?=$this->__('Your order is eligible for Express Shipping.');?></h3>
             <?php if(!$this->hasError()): ?>
             <ul class="checkout-types">
-            <?php foreach ($this->getMethods('methods') as $method): ?>
+            <?php foreach ($this->getMethods('top_methods') as $method): ?>
                 <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
                 <li><?php echo $methodHtml; ?></li>
                 <?php endif; ?>
@@ -160,5 +46,202 @@
             </ul>
             <?php endif; ?>
         </div>
+
+        <div id="secure-info">
+            <h2>Have a Question?</h2>
+            <div id="live-chat" class="section">
+                <p>
+                    <br>
+                    Support 1-855-93-VAPOR
+                </p>
+            </div>
+            <div id="money-back" class="section">
+                <h3>30 Day Money Back Guarantee</h3>
+                <p>Risk-free shopping with our 30 day money back guarantee*</p>
+                <small>*Some restrictions apply. Please see terms for details</small>
+            </div>
+            <div id="secure-checkout" class="section">
+                <h3>100% Secure Checkout</h3>
+                <p>You can rest assured that your information is safe and secure.</p>
+                <div id="secure-icons">
+                    <img src="https://www.vaporfi.com/skin/frontend/default/vaporfi/images/cart_bbb.png" width="40" height="68" alt="BBB">
+                    <img src="https://www.vaporfi.com/skin/frontend/default/vaporfi/images/cart_secure.png" width="88" height="68" alt="Secured by Thawte">
+                </div>
+            </div>
+        </div>
+
+        <div class="cart" id="cart">
+            <?php echo $this->getMessagesBlock()->toHtml() ?>
+            <?php echo $this->getChildHtml('form_before') ?>
+            <form action="<?php echo $this->getFormActionUrl() ?>" method="post" onsubmit="javascript:iCart.updateShoppingCart();return false;">
+                <?php echo $this->getBlockHtml('formkey'); ?>
+                <fieldset>
+                    <div id="new-shopping-cart-table">
+                        <div id="cart-table-head">
+                            <div id="cart-col1" class="cart-table-col">&nbsp;</div>
+                            <div id="cart-product-col" class="cart-table-col">Product</div>
+                            <div id="cart-col2" class="cart-table-col">Product Name</div>
+                            <div id="cart-col3" class="cart-table-col a-center">Price</div>
+                            <div id="cart-col4" class="cart-table-col a-center">Quantity</div>
+                            <div id="cart-col5" class="cart-table-col">&nbsp;</div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <ul id="cart-table-body">
+                            <?php foreach($this->getItems() as $_item): ?>
+                                <?php echo $this->getItemHtml($_item) ?>
+                            <?php endforeach ?>
+                        </ul>
+
+                    </div>
+                    <script type="text/javascript">decorateGeneric($$('#cart-table-body .cart-item'), ['odd','even','first','last'])</script>
+                </fieldset>
+            </form>
+
+            <div class="cart-collaterals">
+                <div class="button-set clearer">
+                    <button type="button" title="<?=$this->__('Secure Checkout')?>" class="greenButton btn-checkout"
+                        onclick="window.location='<?=Mage::helper('checkout/url')->getCheckoutUrl()?>';">
+                        <?=$this->__('Secure Checkout')?>
+                    </button>
+                    <button type="button" title="<?=$this->__('Continue Shopping')?>" class="lgrayButtonSml btn-continue"
+                            onclick="setLocation('/')">
+                        <?=$this->__('Continue Shopping')?>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="boxBottom1"></div>
     </div>
 </div>
+<script type="text/javascript">
+    //<![CDATA[
+    enUS = {"m":{"wide":["January","February","March","April","May","June","July","August","September","October","November","December"],"abbr":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]}}; // en_US locale reference
+    Calendar._DN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]; // full day names
+    Calendar._SDN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]; // short day names
+    Calendar._FD = 0; // First day of the week. "0" means display Sunday first, "1" means display Monday first, etc.
+    Calendar._MN = ["January","February","March","April","May","June","July","August","September","October","November","December"]; // full month names
+    Calendar._SMN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; // short month names
+    Calendar._am = "AM"; // am/pm
+    Calendar._pm = "PM";
+
+    // tooltips
+    Calendar._TT = {};
+    Calendar._TT["INFO"] = "About the calendar";
+
+    Calendar._TT["ABOUT"] =
+        "DHTML Date/Time Selector\n" +
+        "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" +
+        "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
+        "Distributed under GNU LGPL. See http://gnu.org/licenses/lgpl.html for details." +
+        "\n\n" +
+        "Date selection:\n" +
+        "- Use the \xab, \xbb buttons to select year\n" +
+        "- Use the " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " buttons to select month\n" +
+        "- Hold mouse button on any of the above buttons for faster selection.";
+    Calendar._TT["ABOUT_TIME"] = "\n\n" +
+    "Time selection:\n" +
+    "- Click on any of the time parts to increase it\n" +
+    "- or Shift-click to decrease it\n" +
+    "- or click and drag for faster selection.";
+
+    Calendar._TT["PREV_YEAR"] = "Prev. year (hold for menu)";
+    Calendar._TT["PREV_MONTH"] = "Prev. month (hold for menu)";
+    Calendar._TT["GO_TODAY"] = "Go Today";
+    Calendar._TT["NEXT_MONTH"] = "Next month (hold for menu)";
+    Calendar._TT["NEXT_YEAR"] = "Next year (hold for menu)";
+    Calendar._TT["SEL_DATE"] = "Select date";
+    Calendar._TT["DRAG_TO_MOVE"] = "Drag to move";
+    Calendar._TT["PART_TODAY"] = ' (' + "today" + ')';
+
+    // the following is to inform that "%s" is to be the first day of week
+    Calendar._TT["DAY_FIRST"] = "Display %s first";
+
+    // This may be locale-dependent. It specifies the week-end days, as an array
+    // of comma-separated numbers. The numbers are from 0 to 6: 0 means Sunday, 1
+    // means Monday, etc.
+    Calendar._TT["WEEKEND"] = "0,6";
+
+    Calendar._TT["CLOSE"] = "Close";
+    Calendar._TT["TODAY"] = "today";
+    Calendar._TT["TIME_PART"] = "(Shift-)Click or drag to change value";
+
+    // date formats
+    Calendar._TT["DEF_DATE_FORMAT"] = "%b %e, %Y";
+    Calendar._TT["TT_DATE_FORMAT"] = "%B %e, %Y";
+
+    Calendar._TT["WK"] = "Week";
+    Calendar._TT["TIME"] = "Time:";
+
+    Calendar.getAbsolutePos = function(element) {
+
+        var res = new Object();
+        res.x = 0; res.y = 0;
+
+        // variant 1 (working best, copy-paste from prototype library)
+        /*
+         do {
+         res.x += element.offsetLeft || 0;
+         res.y += element.offsetTop  || 0;
+         element = element.offsetParent;
+         if (element) {
+         //alert(element.tagName);
+         if (element.tagName.toUpperCase() == 'BODY') break;
+         var p = Calendar.getStyle(element, 'position');
+         if (p !== 'static') break;
+         }
+         } while (element);
+
+         return res;
+         */
+
+        // variant 2 (good solution, but lost in IE8)
+        if (element !== null) {
+            res.x = element.offsetLeft;
+            res.y = element.offsetTop;
+
+            var offsetParent = element.offsetParent;
+            var parentNode = element.parentNode;
+
+            while (offsetParent !== null) {
+                res.x += offsetParent.offsetLeft;
+                res.y += offsetParent.offsetTop;
+
+                if (offsetParent != document.body && offsetParent != document.documentElement) {
+                    res.x -= offsetParent.scrollLeft;
+                    res.y -= offsetParent.scrollTop;
+                }
+                //next lines are necessary to support FireFox problem with offsetParent
+                if (Calendar.is_gecko) {
+                    while (offsetParent != parentNode && parentNode !== null) {
+                        res.x -= parentNode.scrollLeft;
+                        res.y -= parentNode.scrollTop;
+                        parentNode = parentNode.parentNode;
+                    }
+                }
+                parentNode = offsetParent.parentNode;
+                offsetParent = offsetParent.offsetParent;
+            }
+        }
+
+        //fix calendar position bug: see js/calendar/calendar.js: lines 1447-1470 (method "fixPosition")
+        if (Calendar.is_ie && element.tagName.toUpperCase() == 'DIV' && element.style.position == "absolute" )
+        {
+            res.y +=5000;
+        }
+        //end fix
+
+        return res;
+    };
+    //]]>
+</script>
+<script type="text/javascript">
+    var CAPTION_POINT = 'Points';
+    var CAPTION_POINTS = 'Points';
+    var CAPTION_YOU_WILL_SPEND = 'You Will Spend';
+    var CAPTION_WITH = 'with';
+    var CAPTION_CANNOT_USE_POINTS = "You cannot use points until you login or create a new account.";
+    var CAPTION_NOT_ENOUGH_POINTS = "You don't have enough points to use this redemption rule.";
+    var CAPTION_REFRESHING_CART = 'Refreshing cart, please wait..';
+</script>
