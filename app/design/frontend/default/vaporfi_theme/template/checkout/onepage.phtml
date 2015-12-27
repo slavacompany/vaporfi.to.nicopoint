@@ -29,21 +29,34 @@
 </div>
 <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
-<ol class="opc" id="checkoutSteps">
-<?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
-<?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
-    <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
-        <div class="step-title">
-            <span class="number"><?php echo $i ?></span>
-            <h2><?php echo $_stepInfo['label'] ?></h2>
-            <a href="#"><?php echo $this->__('Edit') ?></a>
-        </div>
-        <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
-            <?php echo $this->getChildHtml($_stepId) ?>
-        </div>
-    </li>
-<?php endforeach ?>
-</ol>
+
+<div id="cart-breadcrumbs">
+    <a class="first" href="http://www.vaporfi.com/checkout/cart/">View Cart</a>
+    <span id="breadcrumb-account">» Account</span>
+    <span id="breadcrumb-shipping-selected">» Shipping</span>
+    <span id="breadcrumb-payment-selected" style="display:none;">
+        » <a id="breadcrumb-shipping" href="javascript: void(0)" onclick="checkout.back(); return false;">Shipping</a>
+        <span id="breadcrumb-payment">» Payment Information</span>
+    </span>
+</div>
+
+<div id="magento-checkout" class="boxContent1">
+    <ol class="opc checkout-left" id="checkoutSteps">
+    <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+    <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+        <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+            <div class="step-title">
+                <span class="number"><?php echo $i ?></span>
+                <h2><?php echo $_stepInfo['label'] ?></h2>
+                <a href="#"><?php echo $this->__('Edit') ?></a>
+            </div>
+            <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
+                <?php echo $this->getChildHtml($_stepId) ?>
+            </div>
+        </li>
+    <?php endforeach ?>
+    </ol>
+
 <script type="text/javascript">
 //<![CDATA[
     var accordion = new Accordion('checkoutSteps', '.step-title', true);
@@ -58,3 +71,97 @@
     );
 //]]>
 </script>
+
+<!--
+<script type="text/javascript">
+    //<![CDATA[
+    var accordion = new Accordion('checkoutSteps', '.step-title', true);
+    accordion.openSection('opc-shipping');
+    Checkout.prototype.saveAbandonCustomer = function (email) {
+        new Ajax.Request('https://www.vaporfi.com/checkout/cart/updateQuoteEmail/', {
+            method: 'post',
+            parameters: {email: email},
+            onSuccess: function (result) {
+                result = JSON.parse(result.responseText);
+                console.log(result);
+            }.bind(this)
+        });
+    };
+    var checkout = new Checkout(accordion,{
+            progress: 'https://www.vaporfi.com/checkout/onepage/progress/',
+            review: 'https://www.vaporfi.com/checkout/onepage/review/',
+            saveMethod: 'https://www.vaporfi.com/checkout/onepage/saveMethod/',
+            failure: 'https://www.vaporfi.com/checkout/cart/',
+            orderSummary: 'https://www.vaporfi.com/checkout/cart/ordersummary/',
+            updateCart: 'https://www.vaporfi.com/checkout/cart/updatePost/'
+        }
+    );
+    //GiftCard
+    var giftCard = new GiftCard(
+        'https://www.vaporfi.com/monkeydo_giftcards/cart/ajaxActivateGiftCard/',
+        'https://www.vaporfi.com/monkeydo_giftcards/cart/ajaxDeActivateGiftCard/',
+        'https://www.vaporfi.com/checkout/onepage/giftcard/'
+    );
+    //Review section
+    review = new Review('https://www.vaporfi.com/checkout/onepage/saveOrder/', 'https://www.vaporfi.com/checkout/onepage/success/step/subscribe/', $('checkout-agreements'));
+    //Load Order Summary
+    checkout.updateOrderSummary();
+    //Handle the remove click in "ORDER SUMMARY"
+    document.observe('click', function(e, el) {
+        if (el = e.findElement('.remove-btn')) {
+            e.stop();
+            if($('review-please-wait'))
+                Element.show('review-please-wait');
+            new Ajax.Request(el.getAttribute('href'), {
+                method: 'get',
+                // parameters: {coupon_code: $('coupon_code').value,remove_coupon:$('remove_coupon').value},
+                onSuccess: function(result) {
+                    checkout.updateOrderSummary();
+                },
+                onFailure: function(){
+                    location.href = 'http://www.vaporfi.com/checkout/cart/';
+                }.bind(this)
+            });
+
+        }
+    });
+    var loginOnepage = new LoginOnePage(
+        {
+            formId: 'forgot-form-onepage',
+            postUrl:'https://www.vaporfi.com/checkout/cart/forgotpassword/',
+            formNewCustomer: 'form-validate'
+
+        }
+    );
+    //No shippingMethod for this order
+    if(checkout.currentShippingMethod == 'notApply'){
+        $('billing_use_for_billing_li').update('&nbsp;');//Remove the 'MATCH BILLING WITH SHIPPING' checkbox, if NO shipping method
+        checkout.gotoSection('payment',true);
+        payment.initWhatIsCvvListeners();
+        //update steps
+        $('checkout-step-2').remove();
+        $('checkout-step-3').update('<span>Step 2</span>Payment');
+    }
+    //]]>
+</script>
+-->
+
+<div class="checkout-right" id="onepageCartSummary">
+   <div id="onepageSummary">
+       This module in develop
+   </div>
+</div>
+
+<script type="text/javascript">
+    var CAPTION_POINT = 'Points';
+    var CAPTION_POINTS = 'Points';
+    var CAPTION_YOU_WILL_SPEND = 'You Will Spend';
+    var CAPTION_WITH = 'with';
+    var CAPTION_CANNOT_USE_POINTS = "You cannot use points until you login or create a new account.";
+    var CAPTION_NOT_ENOUGH_POINTS = "You don't have enough points to use this redemption rule.";
+    var CAPTION_REFRESHING_CART = 'Refreshing cart, please wait..';
+</script>
+
+<div class="clear"></div>
+<div class="boxBottom1">&nbsp;</div>
+</div>
