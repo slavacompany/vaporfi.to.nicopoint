@@ -45,6 +45,7 @@
 ## before autoload was initialized
 
     php_flag session.auto_start off
+    php_flag apc.cache_by_default Off
 
 ############################################
 ## enable resulting html compression
@@ -166,8 +167,8 @@
 ############################################
 ## rewrite everything else to index.php
 
-    RewriteRule .* index.php [L]
-
+    #RewriteRule .* index.php [L]
+    RewriteRule ^(.*)$ /index.php/$1 [L,QSA,PT]
 </IfModule>
 
 
