@@ -62,7 +62,7 @@ Default layout, loads most of the pages
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
 
-            <block type="page/html_header" name="header" as="header" template="page/html/header.cart.phtml"/>
+            <!--<block type="page/html_header" name="header" as="header" template="page/html/header.cart.phtml"/>-->
         </reference>
 
         <reference name="head">
@@ -135,6 +135,12 @@ Default layout, loads most of the pages
                 <block type="checkout/cart_crosssell" name="checkout.cart.crosssell" as="crosssell" template="checkout/cart/crosssell.phtml"/>
 
                 <block type="checkout/cart_totals" name="checkout.cart.totals" as="totals" template="checkout/cart/totals.phtml"/>
+
+            </block>
+            <block type="cms/block" name="happy_customer_cart">
+                <action method="setBlockId">
+                    <block_id>happy-customer</block_id>
+                </action>
             </block>
         </reference>
         <block type="core/text_list" name="additional.product.info" translate="label">
@@ -534,12 +540,13 @@ One page checkout order review block
     <checkout_onepage_success translate="label">
         <label>One Page Checkout Success</label>
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="checkout/onepage_success" name="checkout.success" template="checkout/success.phtml"/>
         </reference>
     </checkout_onepage_success>
+
     <checkout_onepage_failure translate="label">
         <label>One Page Checkout Failure</label>
         <reference name="root">

@@ -24,9 +24,6 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="page-title">
-    <h1><?php echo $this->__('Checkout') ?></h1>
-</div>
 <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
 
@@ -42,41 +39,27 @@
 
 <div id="magento-checkout" class="boxContent1">
     <ol class="opc checkout-left" id="checkoutSteps">
-    <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
-    <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
-        <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
-            <div class="step-title">
-                <span class="number"><?php echo $i ?></span>
-                <h2><?php echo $_stepInfo['label'] ?></h2>
-                <a href="#"><?php echo $this->__('Edit') ?></a>
-            </div>
-            <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
-                <?php echo $this->getChildHtml($_stepId) ?>
-            </div>
-        </li>
-    <?php endforeach ?>
+        <?php $i=0;
+            foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+                <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+            <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+                <div class="step-title">
+                    <span class="number"><?php echo $i ?></span>
+                    <h2><?php echo $_stepInfo['label'] ?></h2>
+                    <!--<a href="#"><?php /*echo $this->__('Edit') */?></a>-->
+                </div>
+                <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
+                    <?php echo $this->getChildHtml($_stepId) ?>
+                </div>
+            </li>
+        <?php endforeach; ?>
     </ol>
 
-<script type="text/javascript">
-//<![CDATA[
-    var accordion = new Accordion('checkoutSteps', '.step-title', true);
-    <?php if($this->getActiveStep()): ?>
-    accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
-    <?php endif ?>
-    var checkout = new Checkout(accordion,{
-        progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
-        review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
-        saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
-        failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
-    );
-//]]>
-</script>
-
-<!--
 <script type="text/javascript">
     //<![CDATA[
     var accordion = new Accordion('checkoutSteps', '.step-title', true);
     accordion.openSection('opc-shipping');
+
     Checkout.prototype.saveAbandonCustomer = function (email) {
         new Ajax.Request('https://www.vaporfi.com/checkout/cart/updateQuoteEmail/', {
             method: 'post',
@@ -96,16 +79,20 @@
             updateCart: 'https://www.vaporfi.com/checkout/cart/updatePost/'
         }
     );
+
     //GiftCard
     var giftCard = new GiftCard(
         'https://www.vaporfi.com/monkeydo_giftcards/cart/ajaxActivateGiftCard/',
         'https://www.vaporfi.com/monkeydo_giftcards/cart/ajaxDeActivateGiftCard/',
         'https://www.vaporfi.com/checkout/onepage/giftcard/'
     );
+
     //Review section
     review = new Review('https://www.vaporfi.com/checkout/onepage/saveOrder/', 'https://www.vaporfi.com/checkout/onepage/success/step/subscribe/', $('checkout-agreements'));
+
     //Load Order Summary
     checkout.updateOrderSummary();
+
     //Handle the remove click in "ORDER SUMMARY"
     document.observe('click', function(e, el) {
         if (el = e.findElement('.remove-btn')) {
@@ -125,6 +112,7 @@
 
         }
     });
+
     var loginOnepage = new LoginOnePage(
         {
             formId: 'forgot-form-onepage',
@@ -133,6 +121,7 @@
 
         }
     );
+
     //No shippingMethod for this order
     if(checkout.currentShippingMethod == 'notApply'){
         $('billing_use_for_billing_li').update('&nbsp;');//Remove the 'MATCH BILLING WITH SHIPPING' checkbox, if NO shipping method
@@ -142,13 +131,12 @@
         $('checkout-step-2').remove();
         $('checkout-step-3').update('<span>Step 2</span>Payment');
     }
-    //]]>
+//]]>
 </script>
--->
 
 <div class="checkout-right" id="onepageCartSummary">
-   <div id="onepageSummary">
-       This module in develop
+   <div id="onepageSummary" style="min-height:220px;text-align:center;">
+       <h3>This module in develop</h3>
    </div>
 </div>
 
@@ -162,6 +150,347 @@
     var CAPTION_REFRESHING_CART = 'Refreshing cart, please wait..';
 </script>
 
+<script type="text/javascript">
+    var slider_ajax_timeout = false;
+    var slider_ajax_timeout_delay = 500;
+    var last_slider_ajax_request = false;
+    var changePointsSpendingUri = 'https://www.vaporfi.com/rewards/cart_redeem/changePointsSpending/';
+    function updateTotalsDueToSpendings(new_spending_amount) {
+        $('payment-please-wait').show();
+        $('shopping-cart-totals-table').hide();
+        var checkoutLinks = $$('.checkout-types');
+        for (var i = 0; i < checkoutLinks.length; i++) {
+            Element.extend(checkoutLinks[i]).hide();
+        }
+        if(last_slider_ajax_request) {
+            last_slider_ajax_request.options.onSuccess = function(t) { /* do nothing because a new request has started */}
+        }
+
+        last_slider_ajax_request = new Ajax.Request(
+            changePointsSpendingUri,
+            {
+                parameters: { points_spending: new_spending_amount  },
+                onSuccess: function(t) {
+                    var result = t.responseJSON;
+                    $('payment-please-wait').hide();
+
+                    $('shopping-cart-totals-table').insert({after:result.totals});
+                    $('shopping-cart-totals-table').remove();
+
+                    var checkoutMethods = Element.extend($$('.title-buttons .checkout-types').shift());
+                    checkoutMethods.insert({after: result.top_methods});
+                    checkoutMethods.remove();
+
+                    var checkoutMethods = Element.extend($$('.totals .checkout-types').shift());
+                    checkoutMethods.insert({after: result.methods});
+                    checkoutMethods.remove();
+
+                    $('co-shipping-method-form').insert({after:result.shipping_methods});
+                    $('co-shipping-method-form').remove();
+                }
+            }
+        );
+    }
+    /**
+     * Sets the value in the input box and what is displayed to the user.
+     * @param val
+     * @return
+     */
+    RedemptionSlider.prototype.setExternalValue = function(val) {
+        var pts = val*this.points_per_use;
+        if(pts == 1) {
+            this.sliderCaption.innerHTML = CAPTION_YOU_WILL_SPEND + ": " + val +
+            " " + CAPTION_POINT;
+        } else {
+            this.sliderCaption.innerHTML = CAPTION_YOU_WILL_SPEND + ": " + val +
+            " " + CAPTION_POINTS;
+        }
+        if(this.sliderValuebox.value != this.getUses()) {
+            this.sliderValuebox.value = this.getUses();
+            if(slider_ajax_timeout) {
+                clearTimeout(slider_ajax_timeout);
+            }
+            slider_ajax_timeout = setTimeout("updateTotalsDueToSpendings("+pts+")", slider_ajax_timeout_delay);
+            if(rSlider.isMaxed()) {
+                $('use_all_points').checked = true;
+            } else {
+                $('use_all_points').checked = false;
+            }
+            // TODO also update giant cart points block if it's there
+        }
+    };
+
+    function toggleUseAllPoints(checked) {
+        if(checked) {
+            rSlider.maximize();
+        } else {
+            rSlider.slider.setValue(0);
+        }
+    }
+
+
+    document.observe("dom:loaded", function() {
+        if($('shopping-cart-totals-table'))$('shopping-cart-totals-table').insert({after: $('payment-please-wait')});
+        if($('payment-please-wait')) { $('payment-please-wait').hide(); }
+
+    });
+
+    function toggleCartRule(checkbox_elem) {
+        var add_rule_url = 'https://www.vaporfi.com/mdrewards/cart_redeem/cartadd/';
+        var remove_rule_url = 'https://www.vaporfi.com/mdrewards/cart_redeem/cartremove/';
+        var url = '';
+        var rid = checkbox_elem.value;
+        checkbox_elem.disabled =  true;
+        if(checkbox_elem.checked) {
+            url = add_rule_url + 'rids/' + rid;
+        } else {
+            url = remove_rule_url + 'rids/' + rid;
+        }
+        $(checkbox_elem).next().innerHTML = CAPTION_REFRESHING_CART;
+        new Ajax.Request(url, {
+            method: 'post',
+            onSuccess: function(response){
+                checkout.forceUpdateOrderSummary = true;
+                checkout.updateOrderSummary();
+                if(window.location.pathname == '/checkout/onepage/index/'){
+                } else {
+                    //console.log('iCart');
+                    //iCartRewards();
+                }
+            }
+        });
+        return true;
+    }
+</script>
+
 <div class="clear"></div>
 <div class="boxBottom1">&nbsp;</div>
 </div>
+
+<!--
+<script type="text/javascript">
+    setTimeout(function(){var a=document.createElement("script");
+        var b=document.getElementsByTagName("script")[0];
+        a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0018/8420.js?"+Math.floor(new Date().getTime()/3600000);
+        a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+
+<script type="text/javascript">
+    var _qevents = _qevents || [];
+
+    (function() {
+        var elem = document.createElement('script');
+        elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+        elem.async = true;
+        elem.type = "text/javascript";
+        var scpt = document.getElementsByTagName('script')[0];
+        scpt.parentNode.insertBefore(elem, scpt);
+    })();
+
+    _qevents.push({
+        qacct:"p--4v9MPYvrR7hu"
+    });
+</script>
+
+<noscript>
+    <div style="display:none;">
+        <img src="//pixel.quantserve.com/pixel/p--4v9MPYvrR7hu.gif" border="0" height="1" width="1" alt="Quantcast"/>
+    </div>
+</noscript>
+
+<script type="text/javascript">
+    var ssa = '7cbda0361d8c961c';
+    var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'pixel.sitescout.com/iap/' + ssa;
+    new Image().src=ssaUrl;
+</script>
+-->
+
+<script type="text/javascript">
+    AddressValidator.addMethods({
+        getAddressId: function() {
+            if ($('billing:use_for_shipping') && $('billing:use_for_shipping').checked && $('billing-address-select')) {
+                return $('billing-address-select').value || null;
+            } else if ($('shipping-address-select')) {
+                return $('shipping-address-select').value || null;
+            }
+        },
+
+        setLoadWaiting: function() {
+            //review.setLoadWaiting();
+            switch(checkout.currentStep){
+                case 'shipping_method':
+                    checkout.setLoadWaiting('shipping');
+                    break;
+                default:
+                    checkout.setLoadWaiting(checkout.currentStep);
+                    break;
+            }
+
+        },
+
+        resetLoadWaiting: function() {
+            //review.resetLoadWaiting();
+            checkout.setLoadWaiting(false);
+            if(checkout.currentShippingMethod != 'notApply')
+                Element.hide($('shipping-please-wait-bottom'));//Enable buttons
+        },
+
+        onAjaxValidationPassed: function() {
+            this.validationPassed = true;
+            if(checkout.currentShippingMethod != 'notApply' ){
+                if(checkout.currentStep == 'payment')
+                    billing.save();
+                else
+                    shipping.save();
+            }else{
+                billing.save();
+            }
+        },
+
+        showAddressFields: function() {
+            if ($('billing:use_for_shipping') && $('billing:use_for_shipping').checked && $('billing-address-select')) {
+                $('billing-address-select').value = '';
+                billing.newAddress();
+                //$('billing-new-address-form').show();
+            } else if ($('shipping-address-select') && checkout.currentStep != 'payment') {
+                $('shipping-address-select').value = '';
+                shipping.newAddress();
+                //$('shipping-new-address-form').show();
+            }
+        },
+
+        afterFillAddressFields : function(address) {
+            //var reloadSteps = ['review'];
+            //aitCheckout.getStep('shipping_method').setReloadSteps(reloadSteps);
+            //aitCheckout.getStep($('billing:use_for_shipping').checked ? 'billing' : 'shipping').update(event);
+        },
+
+        getAddressFields: function() {
+            var fields = {};
+
+            switch(checkout.currentStep){
+                case 'shipping':
+                    fields.street1      = $('shipping:street1');
+                    fields.street2      = $('shipping:street2');
+                    fields.city         = $('shipping:city');
+                    fields.region_id    = $('shipping:region_id');
+                    fields.region       = $('shipping:region');
+                    fields.postcode     = $('shipping:postcode');
+                    fields.country_id   = $('shipping:country_id');
+                    break;
+                case 'shipping_method':
+                    fields.street1      = $('shipping:street1');
+                    fields.street2      = $('shipping:street2');
+                    fields.city         = $('shipping:city');
+                    fields.region_id    = $('shipping:region_id');
+                    fields.region       = $('shipping:region');
+                    fields.postcode     = $('shipping:postcode');
+                    fields.country_id   = $('shipping:country_id');
+                    break;
+                case 'payment':
+                    fields.street1      = $('billing:street1');
+                    fields.street2      = $('billing:street2');
+                    fields.city         = $('billing:city');
+                    fields.region_id    = $('billing:region_id');
+                    fields.region       = $('billing:region');
+                    fields.postcode     = $('billing:postcode');
+                    fields.country_id   = $('billing:country_id');
+                    break;
+                default:
+                    break;
+            }
+
+            return fields;
+        },
+
+        initEvents: function() {
+            // observe address selection change events
+            var that = this;
+            var fieldIds = [
+                'billing:street1', 'billing:street2', 'billing:city', 'billing:region_id', 'billing:region', 'billing:postcode', 'billing:country_id',
+                'shipping:street1', 'shipping:street2', 'shipping:city', 'shipping:region_id', 'shipping:region', 'shipping:postcode', 'shipping:country_id'
+            ];
+
+            for(var i=0; i<fieldIds.length; i++) {
+                if ($(fieldIds[i]) != null) {
+                    $(fieldIds[i]).observe('change', function(event) {
+                        that.validationPassed = false;
+                        that.address.validationFlag = 1;
+                    });
+                }
+            }
+        },
+
+        /*
+         * @author abelbm
+         */
+        validateWithResponse: function() {
+            this.beforeValidate();
+            if (this.validationPassed) {
+                return true;
+            } else if (this.isRequestInProgress) { // Limit one request at a time
+                return false;
+            } else {
+                var addressFields = this.getAddressFields();
+                if (!addressFields.country_id.value.match(/us|pr/i)) {
+                    return true;
+                }
+
+                this.setLoadWaiting();
+                this.isRequestInProgress = true;
+
+                new Ajax.Request(this.baseUrl+'validation/validate', {
+                    method: 'post',
+                    parameters: {
+                        street1: addressFields.street1.value,
+                        street2: addressFields.street2.value,
+                        city: addressFields.city.value,
+                        region_id: addressFields.region_id.value,
+                        region: addressFields.region.value,
+                        postcode: addressFields.postcode.value,
+                        country_id: addressFields.country_id.value
+                    },
+                    onSuccess: function (transport) {
+                        var response = transport.responseText.evalJSON();
+                        this.isRequestInProgress = false;
+                        this.resetLoadWaiting();
+                        if (response.validation_passed) {
+                            this.onAjaxValidationPassed();
+                        } else {
+                            this.showPopup(response.update_section.html);
+                            this.onClickPopupContinueButtonWithResponse(response.address);
+                        }
+                    }.bind(this)
+                });
+
+                return false;
+            }
+        },
+
+        onClickPopupContinueButtonWithResponse: function(suggestedAddress) {
+            $('address-validation-popup-continue-button').observe('click', function() {
+                var selection = $$('input:checked[type="radio"][name="address_validation_popup_option"]')[0].value;
+                switch (selection) {
+                    case 'original':
+                        this.saveAddress(1);
+                        this.onAjaxValidationPassed();
+                        break;
+                    case 'suggested':
+                        //this.showAddressFields();
+                        this.fillAddressFields(suggestedAddress);
+                        this.saveAddress(2);
+                        this.onAjaxValidationPassed();
+                        break;
+                    case 'edit':
+                        //this.showAddressFields();
+                        this.validationPassed = false;
+                }
+                this.closePopup();
+            }.bind(this));
+        }
+
+    });
+
+    var addressValidator = new AddressValidator();
+    addressValidator.initialize('co-checkout-form', 'https://www.vaporfi.com/mdaddressvalidation/');
+</script>

@@ -32,12 +32,13 @@
 Customer account pages, rendered for all tabs in dashboard
 -->
 
-
+<!--
     <customer_logged_in>
         <reference name="right">
             <block type="sales/reorder_sidebar" name="sale.reorder.sidebar" as="reorder" template="sales/reorder/sidebar.phtml"/>
         </reference>
     </customer_logged_in>
+-->
     <checkout_onepage_index>
         <remove name="sale.reorder.sidebar"/>
     </checkout_onepage_index>
@@ -52,9 +53,11 @@ Customer account pages, rendered for all tabs in dashboard
         <reference name="customer_account_navigation">
             <action method="addLink" translate="label" module="sales"><name>orders</name><path>sales/order/history/</path><label>My Orders</label></action>
         </reference>
+<!--
         <reference name="left">
             <block type="sales/reorder_sidebar" name="sale.reorder.sidebar" as="reorder" template="sales/reorder/sidebar.phtml"/>
         </reference>
+-->
 
     </customer_account>
 

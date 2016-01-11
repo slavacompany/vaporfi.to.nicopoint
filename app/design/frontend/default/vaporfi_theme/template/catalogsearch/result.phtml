@@ -26,13 +26,15 @@
 ?>
 <?php if($this->getResultCount()): ?>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <div class="boxContentFull">
+    <div class="boxContentFull" style="min-height:75px;">
 
         <div class="category-title">
             <?php if ($this->helper('rss/catalog')->getTagFeedUrl()): ?>
                 <a href="<?php echo $this->helper('rss/catalog')->getTagFeedUrl() ?>" class="nobr link-rss"><?php echo $this->__('Subscribe to Feed') ?></a>
             <?php endif; ?>
-            <h1><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
+            <h1>
+                <?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?>
+            </h1>
         </div>
 
         <?php if ($messages = $this->getNoteMessages()):?>
@@ -44,7 +46,7 @@
         <?php endif; ?>
     </div>
 
-    <?php echo $this->getProductListHtml() ?>
+    <?=$this->getProductListHtml();?>
 
 <?php else: ?>
     <div class="empty-search">

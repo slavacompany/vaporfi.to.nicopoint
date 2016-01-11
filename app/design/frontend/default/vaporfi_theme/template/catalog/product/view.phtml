@@ -191,3 +191,141 @@
     </div>
 -->
 </div>
+
+<div id="popUpStrengthLevel" class="popup_block">
+    <a href="javascript: void(0)" class="popUpClose">Close</a>
+    <div class="popup-content">
+        <h2>What's the Right Level?</h2>
+        <p>We recommend that all newbies start off with 1.8%. This is the most comparable level to a traditional cigarette and will provide the best results for those just making the switch for the first time. We also offer other levels of nicotine, allowing you to truly customize your vaping experience.</p>
+        <ul class="vzlist1">
+            <li>3.6% - Bold (PG 70% / VG 30% Only)</li>
+            <li>2.4% - Full Flavor (PG 70% / VG 30% Only)</li>
+            <li>1.8% - Regular</li>
+            <li>1.2% - Light</li>
+            <li>0.6% - Ultra Light</li>
+            <li>0.3% - Drippin' Level (PG 50% / VG 50% Only)</li>
+            <li>0.0% - No Nicotine</li>
+        </ul>
+        <p>The nicotine level will directly affect your vaping experience and performance of your electronic cigarette. The term "throat hit" is commonly used to describe the intensity of your vape. As you experience with different nicotine levels, we suggest that you move slowly and do not make drastic jumps. Moving from 1.8% to 2.4% is recommend over jumping straight to 3.6%.</p>
+        <p>As always, if you have any questions or concerns, please give us a call to speak to one of our friendly reps or visit one of our retail locations where we you can speak directly to one of our Associates.</p>
+    </div>
+</div>
+
+<div id="popUpFlavorStrength" class="popup_block">
+    <a href="javascript: void(0)" class="popUpClose">Close</a>
+    <div class="popup-content">
+        <h2>Flavor Strength</h2>
+        <p>You can have a maximum of 3 flavor "shots" added to your e-Liquid. You can choose a single shot, a double shot or a triple shot*.</p>
+        <small>*A triple shot of flavor can sometimes result in changing the flavor or in a flavor that is too strong. We recommend 1 or 2 shots for most flavors.</small>
+    </div>
+</div>
+
+<div id="popUpDiacetylFree" class="popup_block">
+    <a href="javascript: void(0)" class="popUpClose">Close</a>
+    <div class="popup-content">
+        <h2>What is Diacetyl?</h2>
+        <p><strong>All Our E-Liquids are Diacetyl-Free</strong></p>
+        <p>Diacetyl (pronounced die-AS-i-til) is found naturally in low concentrations in foods such as butter and beer, and is a byproduct of fermentation. High exposure to diacetyl in production settings has been linked to rare respiratory illnesses such as coughing, wheezing, and shortness of breath. Although the risks are much lower for vapers inhaling diacetyl-containing e-liquids, it is important to know the potential consequences of extended diacetyl inhalation. Studies have found that e-liquid containing diacetyl may cause harm to the respiratory system over time.</p>
+    </div>
+</div>
+
+<div id="popUpAcetylPropionyl" class="popup_block">
+    <a href="javascript: void(0)" class="popUpClose">Close</a>
+    <div class="popup-content">
+        <h2>What is Acetyl Propionyl?</h2>
+        <p><strong>This E-Liquid is Acetyl Propionyl-Free</strong></p>
+        <p>Acetyl Propionyl (pronounces Ah-see-tel Pro-pee-ih-nil) is typically used as a solvent for cellulose acetate, lacquers, paints, inks, and is also used as a starting agent for drugs, dyes, and pesticides. Most commonly, it is known as an artificial flavor, particularly within the vaping industry for e-liquids. It has a flavor and aroma profile that have been known to carry a particularly sweet, creamy, buttery, cheesy, and fruity flavor, with notes of caramel.</p>
+        <p>Currently there is some controversy surrounding the use of this substance in vapor products, though no concrete evidence has emerged to explicitly label it as harmful. There has been discussion of acetyl propionyl causing damage to the respiratory tract, and it has been known to harm the lungs in studies done on animals. For the time being, until further research emerges, we will carry e-liquid brands that contain acetyl propionyl, but we will identify them as such. <br><u><strong>This particular eLiquid DOES NOT contain acetyl propionyl.</strong></u></p>
+    </div>
+</div>
+
+<div id="popUpBlendMix" class="popup_block">
+    <a href="javascript: void(0)" class="popUpClose">Close</a>
+    <div class="popup-content">
+        <h2>Blend Mix</h2>
+        <p>Select from 50% PG / 50% VG or 70% PG / 30% VG</p>
+        <p><b>70/30</b> provides a stronger throat hit and stronger flavor.</p>
+        <p><b>50/50</b> provides a lighter throat hit accompanied by stronger vapor production.</p>
+        <p>Selecting higher/lower PG or VG is a personal preference that depends on how strong or light you prefer your throat hit, vapor production and taste. Below is the experience you can expect from PG vs. VG:</p>
+
+        <p><strong>Propylene Glycol (PG):</strong></p>
+        <ul class="vzlist1">
+            <li>Stronger flavor taste</li>
+            <li>Thinner e-liquid to aid in better wicking</li>
+            <li>Heavier throat hit</li>
+        </ul>
+        <p><strong>Vegetable Glycerin (VG):</strong></p>
+        <ul class="vzlist1">
+            <li>VG has a naturally sweeter taste</li>
+            <li>Thicker e-liquid and larger vapor production</li>
+            <li>Lighter throat hit</li>
+            <li>Less allergenic</li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var CAPTION_POINT = 'Points';
+    var CAPTION_POINTS = 'Points';
+    var CAPTION_YOU_WILL_SPEND = 'You Will Spend';
+    var CAPTION_WITH = 'with';
+    var CAPTION_CANNOT_USE_POINTS = "You cannot use points until you login or create a new account.";
+    var CAPTION_NOT_ENOUGH_POINTS = "You don't have enough points to use this redemption rule.";
+    var CAPTION_REFRESHING_CART = 'Refreshing cart, please wait..';
+
+</script>
+
+<script type="text/javascript">
+    document.observe("dom:loaded", function() {
+        Validation.add(
+            'validate-can_use_points',
+            CAPTION_CANNOT_USE_POINTS,
+            function(rule_id) {
+                if(rule_id == "") {
+                    return true;
+                } else {
+                    var can_use = rule_options[rule_id]['can_use_rule'];
+                    return can_use;
+                }
+            },
+            {}
+        );
+
+        Validation.add(
+            'validate-has_enough_points',
+            CAPTION_NOT_ENOUGH_POINTS,
+            function(rule_id) {
+                if(rule_id == "") {
+                    return true;
+                } else {
+                    var can_use = rule_options[rule_id]['can_use_rule'];
+                    var amt = rule_options[rule_id]['points_amt'];
+                    var curr = rule_options[rule_id]['points_currency_id'];
+
+                    var qty = parseInt($('qty').getValue());
+                    // fix NaN or bad value
+                    if( false == (qty > 0) )
+                        qty = 1;
+
+                    var uses = parseInt($('redemption_rule_uses').getValue());
+                    // fix NaN or bad value
+                    if( false == (uses > 0) )
+                        uses = 1;
+
+                    if (customer_points) {
+                        if(customer_points[curr] >= qty*amt*uses) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return true;
+                    }
+                }
+            },
+            {}
+        );
+    });
+
+</script>
