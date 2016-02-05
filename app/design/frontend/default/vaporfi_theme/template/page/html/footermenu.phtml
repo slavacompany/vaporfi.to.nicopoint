@@ -3,6 +3,10 @@
 
         <?=$this->getLayout()->createBlock('cms/block')->setBlockId('footer-menu')->toHtml()?>
 
+        <div class="language_switcher" style="float:right;">
+            <?=$this->getChildHtml('store_language');?>
+        </div>
+
     </div>
 
     <div id="siteInfo" class="site-info-toggle">
@@ -18,4 +22,5 @@
             <a href="#" title="Customizable Electronic Cigarettes">Customizable Electronic Cigarettes</a> | <a href="#" title="Electronic Vapor Smoking">Electronic Vapor Smoking</a>
         </p>
     </div>
+
 </div>
