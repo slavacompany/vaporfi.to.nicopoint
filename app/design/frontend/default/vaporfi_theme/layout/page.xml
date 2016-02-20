@@ -50,6 +50,7 @@
                     <stylesheet>css/download/home/8e4189035becfa2b64aee988e34750d6.1448861651.css</stylesheet>
                 </action>
 
+                <action method="addCss"><stylesheet>css/every.pages.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/download/564d9261a106f8e716d0aa460ea1f2e4.1407171755.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/download/7c87753dc1aa37ef42ac9ed2b64b05b5.1445877101.css</stylesheet><params>media="print"</params></action>
 
@@ -100,11 +101,11 @@
             <block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
 
                 <block type="newsletter/subscribe" name="newsletter.subscribe" template="newsletter/subscribe.phtml"/>
+                <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
                 <block type="cms/block" name="footer-top">
                     <action method="setBlockId"><block_id>footer-top</block_id></action>
                 </block>
                 <block type="page/html/footermenu" name="footer.menu" template="page/html/footermenu.phtml"/>
-                <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
                 <block type="cms/block" name="footer-bottom">
                     <action method="setBlockId"><block_id>footer-disclaimer</block_id></action>
                 </block>

@@ -1,0 +1,19 @@
+#form-language{
+    position: relative;
+}
+
+.block-language{
+    max-width: 970px;
+    min-width: 240px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.block-language #select-language{
+    width: 140px;
+    height: 30px;
+    border-radius: 3px;
+    margin-right: 8px;
+    text-align: center;
+    float: right;
+}

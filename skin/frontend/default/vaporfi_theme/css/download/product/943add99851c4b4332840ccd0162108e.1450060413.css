@@ -2257,8 +2257,8 @@ right:-800px;}
 .catalogsearch-result-index .pages li.end, .catalog-category-view .pages li.end{border:none;padding:0px 3px;}
 .catalogsearch-result-index .pages li a, .catalogsearch-result-index .pages li .previous span, .catalogsearch-result-index .pages li .next span, .catalog-category-view .pages li a, .catalog-category-view .pages li .previous span, .catalog-category-view .pages li .next span{text-decoration:underline;}
 .catalogsearch-result-index .pages li a:hover, .catalogsearch-result-index .pages li .previous, .catalogsearch-result-index .pages li .next, .catalogsearch-result-index .pages li .previous:hover span, .catalogsearch-result-index .pages li .next:hover span, .catalog-category-view .pages li a:hover, .catalog-category-view .pages li .previous, .catalog-category-view .pages li .next, .catalog-category-view .pages li .previous:hover span, .catalog-category-view .pages li .next:hover span{text-decoration:none;}
-.catalogsearch-result-index .sort-by, .catalog-category-view .sort-by{padding:2px 0px;float:right;margin-right:15px;width:185px;}
-.catalogsearch-result-index .sort-by label, .catalog-category-view .sort-by label{width:37px;float:left;line-height:26px;}
+.catalogsearch-result-index .sort-by, .catalog-category-view .sort-by{padding:2px 0px;float:right;margin-right:15px;width:230px;}
+.catalogsearch-result-index .sort-by label, .catalog-category-view .sort-by label{width:85px;float:left;line-height:26px;}
 .catalogsearch-result-index .sort-by .select-box, .catalog-category-view .sort-by .select-box{float:left;width:120px;margin:0px 5px;}
 .catalogsearch-result-index .sort-by .select-box select, .catalog-category-view .sort-by .select-box select{height:26px;width:100%;text-transform:uppercase;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;border:2px solid #ccc;}
 @media screen and (-webkit-min-device-pixel-ratio:0) {
