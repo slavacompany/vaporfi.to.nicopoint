@@ -282,17 +282,11 @@
 </div>
 
 <div class="cart-col5 cart-item-col a-center">
-    <a href="<?=$this->getDeleteUrl()?>" title='<?=Mage::helper("core")->quoteEscape($this->__("Remove item")) ?>' class="remove-btn">
-        <?=$this->__('Remove')?>
+    <a href="<?=$this->getDeleteUrl()?>" class="remove-btn">
+        <?=$this->__('Remove');?>
     </a>
-
-    <?php if ($isVisibleProduct): ?>
-        <a href="<?=$this->getConfigureUrl()?>" title='<?php echo Mage::helper("core")->quoteEscape($this->__("Edit item parameters")) ?>'
-            <?php echo $this->__("Edit") ?>
-        </a>
-    <?php endif; ?>
 </div>
-
+<div class="clear"></div>
 <!--
 <div class="cart-col5 cart-item-col a-center">
     <a href='javascript:iCart.updateCart("<?/*=$this->getDeleteUrl()*/?>")'
@@ -310,5 +304,4 @@
     <?php /*endif;*/?>
 </div>
 -->
-<div class="clear"></div>
 </li>
