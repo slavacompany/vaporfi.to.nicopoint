@@ -27,23 +27,25 @@
         </h2>
 
         <?php if ($_options = $this->getOptionList()):?>
-        <span class="view-options"><?=$this->__('View Selected Options')?></span>
-        <dl class="item-options">
-            <?php foreach ($_options as $_option) : ?>
-            <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
-            <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
-            <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
-                <?php if (isset($_formatedOptionValue['full_view'])): ?>
-                <div class="truncated_full_value">
-                    <dl class="item-options">
-                        <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
-                        <dd><?php echo $_formatedOptionValue['full_view'] ?></dd>
-                    </dl>
-                </div>
-                <?php endif; ?>
-            </dd>
-            <?php endforeach; ?>
-        </dl>
+        <div class="options-container">
+            <span class="view-options"><?=$this->__('View Selected Options')?></span>
+            <dl class="item-options">
+                <?php foreach ($_options as $_option) : ?>
+                <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
+                <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
+                    <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                    <div class="truncated_full_value">
+                        <dl class="item-options">
+                            <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                            <dd><?php echo $_formatedOptionValue['full_view'] ?></dd>
+                        </dl>
+                    </div>
+                    <?php endif; ?>
+                </dd>
+                <?php endforeach; ?>
+            </dl>
+        </div>
         <?php endif;?>
         <?php if ($messages = $this->getMessages()): ?>
         <div class="stock-msgs">
@@ -171,7 +173,6 @@
         <?php endif; ?>
 
     <?php endif; ?>
-                        <!-- inclusive price starts here -->
         <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
         <div>
             <?php $_incl = $this->helper('checkout')->getPriceInclTax($_item); ?>
@@ -224,7 +225,7 @@
                data-cart-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>"
                value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
         </div>
-
+        <div class="clear"></div>
 
     <?php if (($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) && !$_item->getNoSubtotal()): ?>
     <div>
@@ -281,20 +282,33 @@
 </div>
 
 <div class="cart-col5 cart-item-col a-center">
-    <a href='javascript:iCart.updateCart("<?=$this->getDeleteUrl()?>")'
-         title='<?=Mage::helper("core")->quoteEscape($this->__("Remove item")) ?>'
-            class='remove-btn' onclick='iCart.updateCart("<?=$this->getDeleteUrl()?>", $(this)); return false;'>
-                <?=$this->__('Remove')?>
+    <a href="<?=$this->getDeleteUrl()?>" title='<?=Mage::helper("core")->quoteEscape($this->__("Remove item")) ?>' class="remove-btn">
+        <?=$this->__('Remove')?>
     </a>
 
     <?php if ($isVisibleProduct): ?>
-        <a href='javascript:iCart.editCart("<?=$this->getConfigureUrl()?>");' class='edit-btn'
-             title='<?php echo Mage::helper("core")->quoteEscape($this->__("Edit item parameters")) ?>'
-                onclick='iCart.editCart("<?=$this->getConfigureUrl()?>");return false;'>
-                    <?php echo $this->__("Edit") ?>
+        <a href="<?=$this->getConfigureUrl()?>" title='<?php echo Mage::helper("core")->quoteEscape($this->__("Edit item parameters")) ?>'
+            <?php echo $this->__("Edit") ?>
         </a>
-    <?php endif ?>
-
+    <?php endif; ?>
 </div>
+
+<!--
+<div class="cart-col5 cart-item-col a-center">
+    <a href='javascript:iCart.updateCart("<?/*=$this->getDeleteUrl()*/?>")'
+         title='<?/*=Mage::helper("core")->quoteEscape($this->__("Remove item")) */?>'
+            class='remove-btn' onclick='iCart.updateCart("<?/*=$this->getDeleteUrl()*/?>", $(this)); return false;'>
+                <?/*=$this->__('Remove')*/?>
+    </a>
+
+    <?php /*if ($isVisibleProduct): */?>
+        <a href='javascript:iCart.editCart("<?/*=$this->getConfigureUrl()*/?>");' class='edit-btn'
+             title='<?php /*echo Mage::helper("core")->quoteEscape($this->__("Edit item parameters")) */?>'
+                onclick='iCart.editCart("<?/*=$this->getConfigureUrl()*/?>");return false;'>
+                    <?php /*echo $this->__("Edit") */?>
+        </a>
+    <?php /*endif;*/?>
+</div>
+-->
 <div class="clear"></div>
 </li>

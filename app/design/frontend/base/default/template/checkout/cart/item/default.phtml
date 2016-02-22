@@ -277,5 +277,9 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <td class="a-center"><a href="<?php echo $this->getDeleteUrl()?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove item')) ?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove item')?></a></td>
+    <td class="a-center">
+        <a href="<?php echo $this->getDeleteUrl()?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove item')) ?>"
+           class="btn-remove btn-remove2"><?php echo $this->__('Remove item')?>
+        </a>
+    </td>
 </tr>

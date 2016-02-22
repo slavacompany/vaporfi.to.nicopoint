@@ -36,15 +36,15 @@
         <div class="page-title title-buttons">
             <h1><?=$this->__('Your Cart');?></h1>
             <h3><?=$this->__('Your order is eligible for Express Shipping.');?></h3>
-            <?php if(!$this->hasError()): ?>
+<!--            <?php /*if(!$this->hasError()): */?>
             <ul class="checkout-types">
-            <?php foreach ($this->getMethods('top_methods') as $method): ?>
-                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
-                <li><?php echo $methodHtml; ?></li>
-                <?php endif; ?>
-            <?php endforeach; ?>
+            <?php /*foreach ($this->getMethods('top_methods') as $method): */?>
+                <?php /*if ($methodHtml = $this->getMethodHtml($method)): */?>
+                <li><?php /*echo $methodHtml; */?></li>
+                <?php /*endif; */?>
+            <?php /*endforeach; */?>
             </ul>
-            <?php endif; ?>
+            --><?php /*endif; */?>
         </div>
 
         <div id="secure-info">
@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="clear"></div>
-        <div class="boxBottom1"></div>
+        <div class="boxBottom1">&nbsp;</div>
     </div>
 </div>
 <script type="text/javascript">
