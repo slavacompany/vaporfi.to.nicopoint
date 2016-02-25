@@ -30,7 +30,7 @@
 <div id="cart-breadcrumbs">
     <a class="first" href="http://www.vaporfi.com/checkout/cart/">View Cart</a>
     <span id="breadcrumb-account">» Account</span>
-    <span id="breadcrumb-shipping-selected">» Shipping</span>
+    <!--<span id="breadcrumb-shipping-selected">» Shipping</span>-->
     <span id="breadcrumb-payment-selected" style="display:none;">
         » <a id="breadcrumb-shipping" href="javascript: void(0)" onclick="checkout.back(); return false;">Shipping</a>
         <span id="breadcrumb-payment">» Payment Information</span>
@@ -38,13 +38,13 @@
 </div>
 
 <div id="magento-checkout" class="boxContent1">
-    <ol class="opc" id="checkoutSteps">
+    <ol class="opc checkout-left" id="checkoutSteps">
         <?php $i=0;
             foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
                 <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
             <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow active':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
                 <div class="step-title"></div>
-                <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item">
+                <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="<?php if($_stepId != 'shipping'): ?>display:none<?php endif; ?>">
                     <?php echo $this->getChildHtml($_stepId) ?>
                 </div>
             </li>
@@ -133,6 +133,7 @@
 <div class="checkout-right" id="onepageCartSummary">
    <div id="onepageSummary" style="min-height:220px;text-align:center;">
        <h3>This module in develop</h3>
+       <?/*=$this->getChildHtml('cart_sidebar');*/?>
    </div>
 </div>
 
