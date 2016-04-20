@@ -31,6 +31,7 @@
  * @see Mage_Checkout_Block_Cart
  */
 ?>
+<?php $getSubtotal = Mage::helper('checkout/cart')->getQuote()->getSubtotal();?>
 <div class="std">
     <div class="boxContent1" id="magento-cart">
         <div class="page-title title-buttons">
@@ -79,10 +80,10 @@
                     <div id="new-shopping-cart-table">
                         <div id="cart-table-head">
                             <div id="cart-col1" class="cart-table-col">&nbsp;</div>
-                            <div id="cart-product-col" class="cart-table-col">Product</div>
-                            <div id="cart-col2" class="cart-table-col">Product Name</div>
-                            <div id="cart-col3" class="cart-table-col a-center">Price</div>
-                            <div id="cart-col4" class="cart-table-col a-center">Quantity</div>
+                            <div id="cart-product-col" class="cart-table-col"><?=$this->__('Product');?></div>
+                            <div id="cart-col2" class="cart-table-col"><?=$this->__('Product Name');?></div>
+                            <div id="cart-col3" class="cart-table-col a-center"><?=$this->__('Price');?></div>
+                            <div id="cart-col4" class="cart-table-col a-center"><?=$this->__('Quantity');?></div>
                             <div id="cart-col5" class="cart-table-col">&nbsp;</div>
                             <div class="clear"></div>
                         </div>
@@ -92,6 +93,23 @@
                                 <?php echo $this->getItemHtml($_item) ?>
                             <?php endforeach ?>
                         </ul>
+
+                        <div id="update-cart-actions">
+                            <button type="submit" name="update_cart_action" value="update_qty" title="Update Shopping Cart" class="lgrayButtonSml btn-update">Update Cart</button>
+                            <button type="submit" name="update_cart_action" value="empty_cart" title="Clear Shopping Cart" class="lgrayButtonSml btn-empty" id="empty_cart_button">Clear Cart</button>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div id="cart-table-foot">
+                            <div id="cart-table-totals">
+                                <div class="cart-totals-item">
+                                    <span class="cart-caption"><?=$this->__('Subtotal');?></span>
+                                    <?=Mage::helper('checkout')->formatPrice($getSubtotal);?>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
 
                     </div>
                     <script type="text/javascript">decorateGeneric($$('#cart-table-body .cart-item'), ['odd','even','first','last'])</script>
@@ -114,6 +132,9 @@
         <div class="clear"></div>
         <div class="boxBottom1">&nbsp;</div>
     </div>
+
+    <?=$this->getChildHtml('customer-comments');?>
+
 </div>
 <script type="text/javascript">
     //<![CDATA[
@@ -244,4 +265,21 @@
     var CAPTION_CANNOT_USE_POINTS = "You cannot use points until you login or create a new account.";
     var CAPTION_NOT_ENOUGH_POINTS = "You don't have enough points to use this redemption rule.";
     var CAPTION_REFRESHING_CART = 'Refreshing cart, please wait..';
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    iCart.init({
+        title: 'Add to',
+        cart: 'Cart',
+        cartEdit: 'Edit',
+        wishlist: 'Wishlist',
+        compare: 'Compare',
+        width: 500,
+        confirmDeleteCart: 'Are you sure you would like to remove this item from the shopping cart?',
+        confirmDeleteWishlist: 'Are you sure you would like to remove this item from the wishlist?',
+        confirmDeleteCompare: 'Are you sure you would like to remove this item from the compare products?',
+        confirmClearCompare: 'Are you sure you would like to remove all products from your comparison?'
+    });
+    document.observe('dom:loaded', function(){iCart.updateLinks()});
+    //]]>
 </script>

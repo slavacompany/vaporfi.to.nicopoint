@@ -1,0 +1,22 @@
+<?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+    <strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong>
+<?php else: ?>
+<div class="fieldset">
+    <h2><?=$this->__('Shipping Method');?></h2>
+    <ul class="sp-methods form-list">
+        <li class="fields">
+            <div class="input-box select-box">
+                <select class="shipping_method">
+                    <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+                        <?php foreach ($_rates as $_rate): ?>
+                            <option value="<?=$_rate->getCode()?>">
+                                <?=$_rate->getMethodTitle()?>&nbsp;&nbsp;<?=$this->getShippingPrice($_rate->getPrice(), true)?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </li>
+    </ul>
+</div>
+<?php endif; ?>

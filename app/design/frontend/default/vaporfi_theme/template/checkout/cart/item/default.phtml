@@ -26,7 +26,7 @@
             <?php endif; ?>
         </h2>
 
-        <?php if ($_options = $this->getOptionList()):?>
+        <?php if ($_options = $this->getOptionList()): ?>
         <div class="options-container">
             <span class="view-options"><?=$this->__('View Selected Options')?></span>
             <dl class="item-options">
@@ -281,27 +281,29 @@
 
 </div>
 
-<div class="cart-col5 cart-item-col a-center">
-    <a href="<?=$this->getDeleteUrl()?>" class="remove-btn">
-        <?=$this->__('Remove');?>
-    </a>
-</div>
-<div class="clear"></div>
 <!--
 <div class="cart-col5 cart-item-col a-center">
-    <a href='javascript:iCart.updateCart("<?/*=$this->getDeleteUrl()*/?>")'
-         title='<?/*=Mage::helper("core")->quoteEscape($this->__("Remove item")) */?>'
-            class='remove-btn' onclick='iCart.updateCart("<?/*=$this->getDeleteUrl()*/?>", $(this)); return false;'>
-                <?/*=$this->__('Remove')*/?>
+    <a href="<?/*=$this->getDeleteUrl()*/?>" class="remove-btn">
+        <?/*=$this->__('Remove');*/?>
     </a>
-
-    <?php /*if ($isVisibleProduct): */?>
-        <a href='javascript:iCart.editCart("<?/*=$this->getConfigureUrl()*/?>");' class='edit-btn'
-             title='<?php /*echo Mage::helper("core")->quoteEscape($this->__("Edit item parameters")) */?>'
-                onclick='iCart.editCart("<?/*=$this->getConfigureUrl()*/?>");return false;'>
-                    <?php /*echo $this->__("Edit") */?>
-        </a>
-    <?php /*endif;*/?>
 </div>
 -->
+
+<div class="cart-col5 cart-item-col a-center">
+    <a href='javascript:iCart.updateCart("<?=$this->getDeleteUrl()?>")'
+         title='<?=Mage::helper("core")->quoteEscape($this->__("Remove item"))?>'
+            class='remove-btn' onclick='iCart.updateCart("<?=$this->getDeleteUrl()?>", $(this)); return false;'>
+                <?=$this->__('Remove');?>
+    </a>
+<!--
+    <?php /*if ($isVisibleProduct): */?>
+        <a href='javascript:iCart.editCart("<?/*=$this->getConfigureUrl()*/?>");' class='edit-btn'
+             title='<?/*=Mage::helper("core")->quoteEscape($this->__("Edit item parameters"))*/?>'
+                onclick='iCart.editCart("<?/*=$this->getConfigureUrl()*/?>");return false;'>
+                    <?/*=$this->__("Edit");*/?>
+        </a>
+    <?php /*endif;*/?>
+-->
+</div>
+<div class="clear"></div>
 </li>

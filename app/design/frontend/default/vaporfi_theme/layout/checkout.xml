@@ -61,8 +61,7 @@ Default layout, loads most of the pages
 
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
-
-            <!--<block type="page/html_header" name="header" as="header" template="page/html/header.cart.phtml"/>-->
+            <block type="page/html_header" name="header" as="header" template="page/html/header.cart.phtml"/>
         </reference>
 
         <reference name="head">
@@ -104,6 +103,8 @@ Default layout, loads most of the pages
             <action method="addJs"><script>vaporfi/download/checkout/aitoc/giftmessage.js</script></action>
             <action method="addJs"><script>vaporfi/download/checkout/aitoc/login.js</script></action>
 
+            <action method="addJs"><script>vaporfi/download/checkout/addressvalidator.js</script></action>
+
         </reference>
 
         <reference name="content">
@@ -137,9 +138,9 @@ Default layout, loads most of the pages
                 <block type="checkout/cart_totals" name="checkout.cart.totals" as="totals" template="checkout/cart/totals.phtml"/>
 
             </block>
-            <block type="cms/block" name="happy_customer_cart">
+            <block type="cms/block" name="customer_comments">
                 <action method="setBlockId">
-                    <block_id>happy-customer</block_id>
+                    <block_id>customer-comments</block_id>
                 </action>
             </block>
         </reference>
@@ -357,7 +358,8 @@ One page checkout main layout
             <action method="addCss">
                 <stylesheet>css/download/checkout/onepage/748e20e8353a5515407768e060420c1d.1451100889.css</stylesheet>
             </action>
-            <!--<block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>-->
+
+            <!--<action method="addJs"><script>vaporfi/download/checkout/modernizr.js</script></action>-->
         </reference>
 
         <reference name="root">
@@ -381,6 +383,7 @@ One page checkout main layout
         </reference>
         <reference name="content">
             <block type="checkout/onepage" name="checkout.onepage" template="checkout/onepage.phtml">
+                <block type="checkout/onepage" name="onepage_sidebar" template="checkout/onepage/onepage_sidebar.phtml" />
                 <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
                     <block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
                         <label>Login/Registration Before</label>
@@ -388,10 +391,11 @@ One page checkout main layout
                     </block>
                 </block>
                 <block type="checkout/onepage_billing" name="checkout.onepage.billing" as="billing" template="checkout/onepage/billing.phtml"/>
-                <block type="checkout/onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="checkout/onepage/shipping.phtml"/>
-                <block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="checkout/onepage/shipping_method.phtml">
-                    <block type="checkout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="available" template="checkout/onepage/shipping_method/available.phtml"/>
-                    <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
+                <block type="checkout/onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="checkout/onepage/shipping.phtml">
+                    <block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="checkout/onepage/shipping_method.phtml">
+                        <block type="checkout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="available" template="checkout/onepage/shipping_method/available.phtml"/>
+                        <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
+                    </block>
                 </block>
                 <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="checkout/onepage/payment.phtml">
                     <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/info.phtml">

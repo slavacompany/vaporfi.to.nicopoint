@@ -14,7 +14,7 @@
                 <fieldset>
                     <input type="hidden" name="shipping[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="shipping:address_id" />
                     <ul>
-                        <li class="fields fieldset">
+                        <li class="fields fieldset" id="shipping-customer-name">
                             <?=$this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress())->setFieldIdFormat('shipping:%s')->setFieldNameFormat('shipping[%s]')->setFieldParams('onchange="shipping.setSameAsBilling(false)"')->toHtml();?>
                         </li>
                         <li class="fields" style="display:none;">
@@ -105,38 +105,49 @@
                     </ul>
                 </fieldset>
             </li>
-            <li class="control">
-                <input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif; ?> title="<?php echo $this->__('Use Billing Address') ?>" onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /><label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label>
-            </li>
+
         </ul>
 
         <div id="shipping-buttons-container" class="please-wait-loader">
             <span id="shipping-please-wait" class="please-wait" style="display:none;">
-            <img src="https://www.vaporfi.com/skin/frontend/default/vaporfi/images/opc-ajax-loader.gif" alt="Loading next step..." title="Loading step..." class="v-middle"> Loading step... </span>
+                <img src="/skin/frontend/default/vaporfi_theme/images/opc-ajax-loader.gif" alt="Loading next step..." title="Loading step..." class="v-middle">
+                <?=$this->__('Loading step...');?>
+            </span>
         </div>
 
-        <div class="checkout-buttons">
-            <div class="buttons-set">
-                <button type="button" class="greenButton continueBtn" onclick="shipping.save()" id="shipping-save-btn" disabled="disabled">
-                    <?=$this->__('Continue') ?>
-                </button>
-                <button type="button" class="lgrayButton backBtn" onclick="checkout.back();return false;"><?=$this->__('Shop More');?></button>
-                <span id="shipping-please-wait" class="please-wait" style="display:none;">
-                    <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
-                </span>
-            </div>
+    </form>
+
+    <?=$this->getChildHtml('shipping_method');?>
+
+    <form class="checkout-buttons">
+        <div class="buttons-set">
+            <button type="button" class="greenButton continueBtn" onclick="shipping.save()" id="shipping-save-btn">
+                <?=$this->__('Continue') ?>
+            </button>
+            <button type="button" class="lgrayButton backBtn" onclick="location.href='/'">
+                <?=$this->__('Shop More');?>
+            </button>
         </div>
     </form>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-    var shipping = new Shipping('co-shipping-form', '<?php echo $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?php echo $this->getUrl('checkout/onepage/saveShipping') ?>',
-        '<?php echo $this->getUrl('checkout/onepage/shippingMethod') ?>');
-    var shippingForm = new VarienForm('co-shipping-form');
-    shippingForm.extraChildParams = ' onchange="shipping.setSameAsBilling(false);"';
-    //shippingForm.setElementsRelation('shipping:country_id', 'shipping:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Select State/Province...')) ?>');
-    $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
 
-    var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'shipping:postcode');
-//]]>
-</script>
+    <script type="text/javascript">
+        //<![CDATA[
+        var shipping = new Shipping('co-shipping-form', '<?=$this->getUrl('checkout/onepage/getAddress') ?>address/', '<?=$this->getUrl('checkout/onepage/saveShipping') ?>',
+            '<?=$this->getUrl('checkout/onepage/shippingMethod') ?>');
+        var shippingForm = new VarienForm('co-shipping-form');
+        shippingForm.extraChildParams = ' onchange="shipping.setSameAsBilling(false);"';
+        //shippingForm.setElementsRelation('shipping:country_id', 'shipping:region', '<?=$this->getUrl('directory/json/childRegion') ?>', '<?=Mage::helper('core')->jsQuoteEscape($this->__('Select State/Province...'))?>');
+        $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
+
+        var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?=$this->helper('directory')->getRegionJson() ?>, undefined, 'shipping:postcode');
+        //]]>
+    </script>
+
+    <div id="shipping-buttons-container-bottom" class="please-wait-loader">
+        <span id="shipping-please-wait-bottom" class="please-wait" style="display:none;">
+            <img src="/skin/frontend/default/vaporfi_theme/images/opc-ajax-loader.gif" alt="Loading next step..." title="Loading step..." class="v-middle">
+                <?=$this->__('Loading step...');?>
+        </span>
+    </div>
+
+</div>

@@ -1,0 +1,102 @@
+<?php
+    $helperCheckout = Mage::helper('checkout');
+    $shippingAmount = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getShippingAmount();
+    //$cartItems = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
+    $cartItems = Mage::helper('checkout/cart')->getCart()->getQuote();
+    $getSubTotal = $cartItems->getSubtotal();
+    $getGrandTotal = $cartItems->getGrandTotal();
+    $getShippingPrice = $getGrandTotal - $getSubTotal;
+
+    $itemBlock = '';
+    foreach ($cartItems->getItemsCollection() as $item):
+        if($item->getProductType() == 'configurable'):
+            // Load the configured product options
+            $options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
+
+            $itemBlock .= '<tr><td class="a-top image-col">';
+            $itemBlock .= '<a href="'.$item->getProduct()->getUrlPath().'" title="'.$item->getProduct()->getName().'"
+                                                    class="product-image">';
+            $itemBlock .= '<img src="'.Mage::helper('catalog/image')->init($item->getProduct(), 'thumbnail')->resize(85,85).'"
+                                                    width="85" height="85" alt="'.$item->getProduct()->getName().'">';
+            $itemBlock .= '</a></td>';
+            $itemBlock .= '<td><div class="product-info"><h2 class="product-name">';
+            $itemBlock .= '<a href="'.$item->getProduct()->getUrlPath().'">'.$item->getProduct()->getName().'</a></h2>';
+
+            if ($options['attributes_info']):
+                $itemBlock .= '<div class="options-container"><span class="view-options">'.$this->__('View Selected Options').'</span>';
+                $itemBlock .= '<dl class="item-options">';
+                    foreach ($options['attributes_info'] as $_option):
+                        $itemBlock .= '<dt>'.$this->escapeHtml($_option['label']).'</dt>';
+                        $itemBlock .= '<dd>'.$this->escapeHtml($_option['value']).'</dd>';
+                    endforeach;
+                $itemBlock .= '<div class="clear"></div></dl></div>';
+            endif;
+
+            $itemBlock .= '<div class="product-pricing"><span class="cart-price">'.$helperCheckout->formatPrice($item->getProduct()->getPrice()).'</span>';
+            $itemBlock .= $this->__(" X QTY ").'<span id="cart-">'.$item->getQty().'</span></div>';
+            $itemBlock .= '</td></tr>';
+        endif;
+    endforeach;
+?>
+
+
+<form action="<?=$this->getUrl('checkout/cart/updatePost');?>" method="post" class="onepage-summary" id="onepage-summary-form">
+    <?=$this->getBlockHtml('formkey'); ?>
+    <h3 id="summary-title"><?=$this->__('Summary');?></h3>
+    <div class="order-review" id="checkout-review-load" style="display:block;">
+        <table class="order-summary" id="checkout-review-table">
+            <thead>
+            <tr>
+                <td colspan="2">
+                    <h3 id="review-order-title"><?=$this->__('Review Your Order');?></h3>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            </thead>
+
+            <tbody>
+                <?=$itemBlock;?>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td class="last" colspan="2">
+                        <span class="footer-total"><?=$this->__('SubTotal');?></span>
+                        <span class="price"><?=$helperCheckout->formatPrice($getSubTotal);?></span>
+                    </td>
+                </tr>
+                <tr class="odd">
+                    <td class="last" colspan="2">
+                        <span class="footer-total"><?=$this->__('Shipping');?></span>
+                        <span class="price"><?=$helperCheckout->formatPrice($getShippingPrice);?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="last" colspan="2">
+                        <span class="footer-total"><?=$this->__('Grand Total');?></span>
+                        <span id="current-payment-total-grandtotal">
+                            <span class="price"><?=$helperCheckout->formatPrice($getGrandTotal);?></span>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="last">
+                    <td class="last" colspan="2">
+                        <div id="footer_edit_cart">
+                            <button type="button" class="lgrayButtonSml cartBtn"
+                                onclick="location.href='<?=$this->getUrl('checkout/cart/');?>'">
+                                    <?=$this->__('Edit Cart');?>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="please-wait-loader">
+        <span class="please-wait" id="review-please-wait" style="display:none;">
+        <img src="/skin/frontend/default/vaporfi_theme/images/opc-ajax-loader.gif"
+             alt="Updating Order Information..." title="Updating Order Information..." class="v-middle">
+            <?=$this->__('Updating Order Information...');?>
+        </span>
+    </div>
+</form>

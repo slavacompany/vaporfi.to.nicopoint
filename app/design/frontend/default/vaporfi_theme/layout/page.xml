@@ -11,7 +11,8 @@
 
             <block type="page/html_head" name="head" as="head">
                 <action method="addJs"><script>vaporfi/download/jquery-1.11.3.min.js</script></action>-->
-                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <!--<action method="addJs"><script>prototype/prototype.js</script></action>-->
+                <action method="addJs"><script>vaporfi/download/monkeydo/prototype/prototype.js</script></action>
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>vaporfi/download/prototype/validation.min.js</script></action>
                 <action method="addJs"><script>vaporfi/download/scriptaculous/builder.min.js</script></action>
@@ -29,7 +30,6 @@
                 <action method="addJs"><script>vaporfi/download/rewardssocial/facebook/reward.js</script></action>
                 <action method="addJs"><script>vaporfi/download/script.js</script></action>
                 <action method="addJs"><script>vaporfi/download/script-responsive.js</script></action>
-                <!--<action method="addJs"><script>vaporfi/download/monkeydo/prototype/prototype.js</script></action>-->
 
                 <!--    Magento standart JS Files -->
                 <action method="addJs"><script>varien/menu.js</script></action>

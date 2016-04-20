@@ -442,6 +442,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         try {
             $cartData = $this->getRequest()->getParam('cart');
+
             if (is_array($cartData)) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
                     array('locale' => Mage::app()->getLocale()->getLocaleCode())

@@ -19,6 +19,7 @@ iCart.Methods = {
     },
     updateLinks: function () {
         var links = $$('a');
+/*
         links.each(function (link) {
             firstWishlistFlag = false;
             if (link.href.indexOf('iCart.') == -1) {
@@ -49,6 +50,7 @@ iCart.Methods = {
                 }
             }
         }.bind(this));
+*/
         if (typeof productAddToCartForm != 'undefined' && $$('input[type="file"]').length == 0) {
             productAddToCartForm.submit = function () {
                 if (this.validator.validate()) {
@@ -81,6 +83,7 @@ iCart.Methods = {
             ;
         }
         if ($('co-shipping-method-form'))$('co-shipping-method-form').writeAttribute('onsubmit', 'javascript:iCart.updateShipping(); return false;');
+
         $$('div.cart form button').each(function (el) {
             el.observe('click', function () {
                 iCart.action = el.value;
@@ -90,7 +93,7 @@ iCart.Methods = {
     fade: function (el) {
         if (!el)return;
         el.fade({duration: 0.3, from: 1, to: 0.2});
-        el.style.backgroundImage = 'url(/skin/frontend/base/default/css/mageworx/spinner.gif)';
+        el.style.backgroundImage = 'url(/skin/frontend/default/vaporfi_theme/css/download/mageworx/spinner.gif)';
         el.style.backgroundRepeat = 'no-repeat';
         el.style.backgroundPosition = 'center center';
     },
@@ -167,8 +170,8 @@ iCart.Methods = {
         var form = $$('div.cart form').first();
         this.fadeDiv(form, 1);
         var url = form.action;
-        url = url.replace('/cart/updatePost', '/icart/updateShoppingCart');
-        url = this.checkProtocol(url);
+        //url = url.replace('/cart/updatePost', '/icart/updateShoppingCart');
+        //url = this.checkProtocol(url);
         var params = form.serialize();
         if (this.action == 'update_qty') {
             params = params.replace('update_cart_action=empty_cart', 'update_cart_action=' + this.action);
@@ -180,6 +183,7 @@ iCart.Methods = {
                 var response = new String(transport.responseText);
                 this._eval(response);
                 this.updateLinks();
+                setLocation(url);
             }.bind(this)
         });
     },

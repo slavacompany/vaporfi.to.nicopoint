@@ -33,7 +33,8 @@
     <?php if ($this->hasProductUrl()): ?>
         <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></a>
     <?php else: ?>
-        <span class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
+        <span class="product-image"><
+            src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
     <?php endif; ?>
     <div class="product-details">
         <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>" onclick="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you would like to remove this item from the shopping cart?'), true) ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
