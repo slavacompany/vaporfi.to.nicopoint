@@ -31,8 +31,7 @@
 ############################################
 ## adjust memory limit
 
-#    php_value memory_limit 64M
-    php_value memory_limit 256M
+    php_value memory_limit 768M
     php_value max_execution_time 18000
 
 ############################################
@@ -122,6 +121,8 @@
 ## path relative to web root
 
     #RewriteBase /magento/
+    #RewriteCond %{REQUEST_URI} /en/?$
+    #RewriteRule .* / [L,R=301]
 
 ############################################
 ## uncomment next line to enable light API calls processing
@@ -167,8 +168,8 @@
 ############################################
 ## rewrite everything else to index.php
 
-    #RewriteRule .* index.php [L]
-    RewriteRule ^(.*)$ /index.php/$1 [L,QSA,PT]
+    RewriteRule .* index.php [L]
+    #RewriteRule ^(.*)$ /index.php/$1 [L,QSA,PT]
 </IfModule>
 
 
